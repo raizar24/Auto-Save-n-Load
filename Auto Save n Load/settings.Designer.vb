@@ -336,7 +336,6 @@ Partial Class settings
         ' 
         NewAdminPassword.Location = New Point(190, 143)
         NewAdminPassword.Name = "NewAdminPassword"
-        NewAdminPassword.PasswordChar = "*"c
         NewAdminPassword.Size = New Size(270, 23)
         NewAdminPassword.TabIndex = 26
         ' 

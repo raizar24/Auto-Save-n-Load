@@ -283,8 +283,9 @@ Public Class settings
         Dim selectedItem As String = ListBox1.SelectedItem
         Dim doc As XmlDocument = New XmlDocument()
         doc.Load(Form1.gamesXML)
+        selectedItem = selectedItem
+        Dim xpathExpression = $"/games/game[name='{selectedItem}']/path"
 
-        Dim xpathExpression = CheckXMLSingleQoute(selectedItem, "game")
         If xpathExpression.Equals(String.Empty) Then
             Exit Sub
         End If
@@ -300,7 +301,8 @@ Public Class settings
         Dim selectedItem As String = ListBox2.SelectedItem
         Dim doc As XmlDocument = New XmlDocument()
         doc.Load(Form1.userXML)
-        Dim xpathExpression = CheckXMLSingleQoute(selectedItem, "user")
+        selectedItem = CleanStringForPath(selectedItem)
+        Dim xpathExpression = $"/users/user[username='{selectedItem}']/passwordHash"
         Dim pathNode As XmlNode = doc.SelectSingleNode(xpathExpression)
         txtUser.Text = ListBox2.SelectedItem
         If Not pathNode Is Nothing Then

@@ -14,14 +14,27 @@ Module mods
         Dim xmlDoc As New XmlDocument()
         xmlDoc.Load(xmlFile)
 
-        Dim pathNodes As XmlNodeList = xmlDoc.SelectNodes("//path")
+        Dim gameNodes As XmlNodeList = xmlDoc.SelectNodes("//game")
 
-        For Each pathNode As XmlNode In pathNodes
-            Dim sourcePath As String = pathNode.InnerText
+        For Each gameNode As XmlNode In gameNodes
+            Dim nameNode As XmlNode = gameNode.SelectSingleNode("name")
+            Dim pathNode As XmlNode = gameNode.SelectSingleNode("path")
+            Dim gameName As String = CleanStringForPath(nameNode.InnerText)
+            Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
             Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(sourcePath))
-            Dim targetPath As String = IO.Path.Combine(destinationFolder, folderName)
+            Dim targetPath As String = IO.Path.Combine(destinationFolder, gameName, folderName)
+
             If Not Directory.Exists(targetPath) Then
                 Directory.CreateDirectory(targetPath)
+            End If
+            Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(sourcePath))
+
+            If Directory.Exists(sourceParentDirectory) Then
+                Directory.CreateDirectory(sourceParentDirectory)
+            End If
+
+            If Not Directory.Exists(sourceParentDirectory) Then
+                Directory.CreateDirectory(sourceParentDirectory)
             End If
             doSymbolicLink(sourcePath, targetPath)
         Next
@@ -49,24 +62,11 @@ Module mods
         Dim pathNodes As XmlNodeList = xmlDoc.SelectNodes("//path")
 
         For Each pathNode As XmlNode In pathNodes
-            Dim sourcePath As String = pathNode.InnerText
-            doRemoveSymbolicLink(sourcePath)
+            Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
+            If Directory.Exists(sourcePath) Then
+                Directory.Delete(sourcePath, True)
+            End If
         Next
-    End Sub
-
-    Private Sub doRemoveSymbolicLink(ByVal targetPath As String)
-        Dim command As String = "/C rmdir """ & targetPath & """"
-
-        Dim process As New Process()
-        With process.StartInfo
-            .FileName = "cmd.exe"
-            .Arguments = command
-            .WindowStyle = ProcessWindowStyle.Hidden
-            .CreateNoWindow = True
-        End With
-
-        process.Start()
-        process.WaitForExit()
     End Sub
 
     Function loadXML(ByVal value As String)
@@ -116,10 +116,12 @@ Module mods
         Dim userProfile As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
         Dim appData As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
         Dim localAppData As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
+        Dim programData As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
 
         Dim appdataRegex As New Regex("%appdata%", RegexOptions.IgnoreCase)
         Dim userProfileRegex As New Regex("%userprofile%", RegexOptions.IgnoreCase)
         Dim localAppDataRegex As New Regex("%localappdata%", RegexOptions.IgnoreCase)
+        Dim programDataRegex As New Regex("%programdata%", RegexOptions.IgnoreCase)
 
         Dim result As String = input
 
@@ -135,6 +137,9 @@ Module mods
             result = localAppDataRegex.Replace(result, localAppData)
         End If
 
+        If programDataRegex.IsMatch(input) Then
+            result = programDataRegex.Replace(result, programData)
+        End If
 
         Return result
     End Function
@@ -155,42 +160,12 @@ Module mods
         End If
     End Sub
 
-    Function CheckXMLSingleQoute(ByVal stringValue As String, ByVal xmlname As String)
-
-        Try
-            If stringValue Is Nothing Then
-                Return String.Empty
-            End If
-
-            If Not stringValue.Contains("'") Then
-                If xmlname = "game" Then
-                    stringValue = $"/games/game[name='{stringValue}']/path"
-                End If
-
-                If xmlname = "user" Then
-                    stringValue = $"/users/user[username='{stringValue}']/passwordHash"
-                End If
-
-                Return stringValue
-            End If
-
-            stringValue = stringValue.Replace("'", "', ""'"", '")
-            If xmlname = "game" Then
-                stringValue = $"/games/game[name=concat('{stringValue}')]/path"
-            End If
-
-            If xmlname = "user" Then
-                stringValue = $"/users/user[username='{stringValue}']/passwordHash"
-            End If
-
-            Return stringValue
-
-        Catch e As NullReferenceException
-            Return String.Empty
-        Catch e As Exception
-            Return String.Empty
-        End Try
+    Function CleanStringForPath(ByVal input As String) As String
+        Dim invalidChars As Char() = IO.Path.GetInvalidFileNameChars()
+        For Each ch As Char In invalidChars
+            input = input.Replace(ch, "")
+        Next
+        Return input
     End Function
-
 
 End Module

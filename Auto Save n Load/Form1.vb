@@ -1,9 +1,10 @@
 ﻿Imports System.IO
 Imports System.Net.Security
+Imports System.Xml
 
 Public Class Form1
-    Dim username As String = Environment.MachineName
-    Public serverLocation As String = "\\ROY\Games\testsave\" 'checkBackSlash(loadXML("sharedFolder"))
+    Dim username As String = "roy" 'Environment.MachineName
+    Public serverLocation As String = "\\ROY\Saves\" 'checkBackSlash(loadXML("sharedFolder"))
     Public userXML As String = Path.Combine(serverLocation, "users.xml")
     Public gamesXML As String = Path.Combine(serverLocation, "games.xml")
     Public adminXML As String = Path.Combine(serverLocation, "admin.xml")
@@ -142,11 +143,12 @@ Public Class Form1
     End Sub
 
     Sub checkCurrentUser()
-        If username.Equals(Environment.MachineName) Then
+        If username.ToUpper.Equals(Environment.MachineName) Then
             lblUser.Text = "PUBLIC SAVE"
         Else
             lblUser.Text = "CURRENT USER"
         End If
     End Sub
+
 
 End Class
