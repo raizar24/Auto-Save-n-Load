@@ -113,7 +113,9 @@ Partial Class register
         Controls.Add(txtpass2)
         Controls.Add(txtpass)
         Controls.Add(txtuser)
+        FormBorderStyle = FormBorderStyle.FixedDialog
         Name = "register"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "register"
         ResumeLayout(False)
         PerformLayout()

@@ -33,9 +33,6 @@ Module mods
                 Directory.CreateDirectory(sourceParentDirectory)
             End If
 
-            If Not Directory.Exists(sourceParentDirectory) Then
-                Directory.CreateDirectory(sourceParentDirectory)
-            End If
             doSymbolicLink(sourcePath, targetPath)
         Next
     End Sub

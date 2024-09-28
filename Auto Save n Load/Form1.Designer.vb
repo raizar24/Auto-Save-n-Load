@@ -34,7 +34,6 @@ Partial Class Form1
         Label3 = New Label()
         btnlogout = New Button()
         btnSettings = New Button()
-        BackgroundWorker1 = New ComponentModel.BackgroundWorker()
         SuspendLayout()
         ' 
         ' btnClose
@@ -138,11 +137,11 @@ Partial Class Form1
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point)
-        Label3.Location = New Point(81, 55)
+        Label3.Location = New Point(23, 58)
         Label3.Name = "Label3"
-        Label3.Size = New Size(128, 28)
+        Label3.Size = New Size(249, 28)
         Label3.TabIndex = 9
-        Label3.Text = "SAVE GAMES"
+        Label3.Text = "OFFLINE SAVE GAME TOOL"
         ' 
         ' btnlogout
         ' 
@@ -205,6 +204,5 @@ Partial Class Form1
     Friend WithEvents Label3 As Label
     Friend WithEvents btnlogout As Button
     Friend WithEvents btnSettings As Button
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 
 End Class
