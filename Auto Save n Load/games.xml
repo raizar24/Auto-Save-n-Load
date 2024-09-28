@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<games>
+  <game>
+    <name>GTA 5</name>
+    <path>%USERPROFILE%\AppData\Roaming\Goldberg SocialClub Emu Saves\GTA V\0F74F4C4\</path>
+  </game>
+  <game>
+    <name>Red Dead Redemption 2</name>
+    <path>%AppData%\Goldberg SocialClub Emu Saves\RDR2\0F74F4C4</path>
+  </game>
+  <game>
+    <name>God of War</name>
+    <path>%userprofile%\Saved Games\God of War\6300451</path>
+  </game>
+  <game>
+    <name>God of War: Ragnarok</name>
+    <path>%userprofile%\Saved Games\God of War Ragnarök\6144</path>
+  </game>
+  <game>
+    <name>Chained Together</name>
+    <path>%USERPROFILE%/AppData/Local/ChainedTogether/Saved/SaveGames</path>
+  </game>
+  <game>
+    <name>Goat Simulator 3</name>
+    <path>%LOCALAPPDATA% \Goat2\Saved\SaveGames\</path>
+  </game>
+  <game>
+    <name>Helldrivers</name>
+    <path>%APPDATA%\Arrowhead\Helldivers\saves</path>
+  </game>
+  <game>
+    <name>NBA 2k21</name>
+    <path>%PROGRAMDATA%\2K Sports\NBA 2K21</path>
+  </game>
+  <game>
+    <name>Need For Speed Most Wanted</name>
+    <path>%userprofile%\Documents\NFS Most Wanted</path>
+  </game>
+  <game>
+    <name>One Piece Pirate Warriors 4</name>
+    <path>%LOCALAPPDATA%\BANDAI NAMCO Entertainment\One Piece Pirate Warriors 4\Saved\SaveGames</path>
+  </game>
+  <game>
+    <name>Prototype</name>
+    <path>%USERPROFILE%\Documents\Prototype</path>
+  </game>
+  <game>
+    <name>RimWorld</name>
+    <path>%USERPROFILE%\AppData\LocalLow\Ludeon Studios\</path>
+  </game>
+  <game>
+    <name>Selfloss</name>
+    <path>%USERPROFILE%\AppData\LocalLow\Squid Shock Studios\Bo</path>
+  </game>
+  <game>
+    <name>Spiderman Remastered</name>
+    <path>%USERPROFILE%\Documents\Marvel's Spider-Man Remastered</path>
+  </game>
+  <game>
+    <name>Stray</name>
+    <path>%LocalAppData%Hk_project\Saved\SaveGames\</path>
+  </game>
+  <game>
+    <name>Sunset Hills</name>
+    <path>%USERPROFILE%/AppData/LocalLow/CottonGame/SunsetHills_Steam\</path>
+  </game>
+  <game>
+    <name>Terraria</name>
+    <path>%USERPROFILE%\Documents\My Games\Terraria\</path>
+  </game>
+  <game>
+    <name>Thanks Goodness Youre Here</name>
+    <path>%USERPROFILE%\AppData\LocalLow\Coal Supper\Thank Goodness You're Here!\saves</path>
+  </game>
+  <game>
+    <name>Thought Experiment Simulator</name>
+    <path>%USERPROFILE%\AppData\LocalLow\Landfall Games\Totally Accurate Battle Simulator\Saved</path>
+  </game>
+  <game>
+    <name>GTA San Andreas</name>
+    <path>%userprofile%\Documents\GTA San Andreas User Files\</path>
+  </game>
+  <game>
+    <name>Prototype 2</name>
+    <path>%USERPROFILE%\Documents\Activision\Prototype 2</path>
+  </game>
+</games>
