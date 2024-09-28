@@ -17,30 +17,6 @@
     <path>%userprofile%\Saved Games\God of War Ragnarök\6144</path>
   </game>
   <game>
-    <name>MineCraft</name>
-    <path>E:\Games\Minecraft\.minecraft\saves</path>
-  </game>
-  <game>
-    <name>MineCraft CaveHorror</name>
-    <path>E:\Games\Minecraft\.minecraft\versions\Cave Horror Project Cave Horror-v1.4.5\saves</path>
-  </game>
-  <game>
-    <name>MineCraft DeceasedCraft</name>
-    <path>E:\Games\Minecraft\.minecraft\versions\DeceasedCraft - Modern Zombie Apocalypse DeceasedCraft_Client_v4.4.6\saves</path>
-  </game>
-  <game>
-    <name>MineCraft FabricSodium</name>
-    <path>E:\Games\Minecraft\.minecraft\versions\FabricSodium 1.19.3\Saves</path>
-  </game>
-  <game>
-    <name>MineCraft One Block</name>
-    <path>E:\Games\Minecraft\.minecraft\versions\One Block MC 2.1\saves</path>
-  </game>
-  <game>
-    <name>MineCraft Survive 100 days</name>
-    <path>E:\Games\Minecraft\.minecraft\versions\Survive 100 days in all horror survive 100 days in All horror-1.2</path>
-  </game>
-  <game>
     <name>Chained Together</name>
     <path>%USERPROFILE%/AppData/Local/ChainedTogether/Saved/SaveGames</path>
   </game>
@@ -50,7 +26,7 @@
   </game>
   <game>
     <name>Goat Simulator 3</name>
-    <path>%LOCALAPPDATA% \Goat2\Saved\SaveGames\</path>
+    <path>%LOCALAPPDATA%\Goat2\Saved\SaveGames\</path>
   </game>
   <game>
     <name>Helldrivers</name>
@@ -62,7 +38,7 @@
   </game>
   <game>
     <name>Need For Speed Most Wanted</name>
-    <path>E:\saves\Documents\NFS Most Wanted</path>
+    <path>%userprofile%\Documents\NFS Most Wanted</path>
   </game>
   <game>
     <name>One Piece Pirate Warriors 4</name>
@@ -70,19 +46,19 @@
   </game>
   <game>
     <name>Prototype</name>
-    <path>E:\saves\Documents\Prototype</path>
+    <path>%userprofile%\Documents\Prototype</path>
   </game>
   <game>
     <name>RimWorld</name>
-    <path>E:\saves\lowlocal\Ludeon Studios\</path>
+    <path>%userprofile%\appdata\lowlocal\Ludeon Studios\</path>
   </game>
   <game>
     <name>Selfloss</name>
-    <path>E:\saves\lowlocal\Squid Shock Studios\Bo</path>
+    <path>%userprofile%\appdata\lowlocal\Squid Shock Studios\Bo</path>
   </game>
   <game>
     <name>Spiderman Remastered</name>
-    <path>E:\saves\Documents\Marvel’s Spider-Man Remastered</path>
+    <path>%userprofile%\Documents\Marvel's Spider-Man Remastered</path>
   </game>
   <game>
     <name>Stray</name>
@@ -94,7 +70,7 @@
   </game>
   <game>
     <name>Terraria</name>
-    <path>E:\saves\Documents\My Games\Terraria\</path>
+    <path>%USERPROFILE%\Documents\My Games\Terraria\</path>
   </game>
   <game>
     <name>Thanks Goodness Youre Here</name>
@@ -106,10 +82,10 @@
   </game>
   <game>
     <name>GTA San Andreas</name>
-    <path>E:\saves\Documents\GTA San Andreas User Files\</path>
+    <path>%USERPROFILE%\Documents\GTA San Andreas User Files\</path>
   </game>
   <game>
     <name>Prototype 2</name>
-    <path>E:\saves\Documents\Activision\Prototype 2</path>
+    <path>%USERPROFILE%\Documents\Activision\Prototype 2</path>
   </game>
 </games>
