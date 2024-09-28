@@ -72,14 +72,6 @@ Module mods
         Return xreturn
     End Function
 
-    Sub saveXML(ByVal newVal As String, ByVal varLoc As String)
-        Dim xmlDoc As New XmlDocument()
-        xmlDoc.Load("settings.xml")
-        Dim node As XmlNode = xmlDoc.SelectSingleNode("/Variable/" & varLoc)
-        node.InnerText = newVal
-        xmlDoc.Save("settings.xml")
-    End Sub
-
     Function checkBackSlash(ByVal path As String) As String
         If Not path.EndsWith("\") Then
             path &= "\"
@@ -140,22 +132,6 @@ Module mods
 
         Return result
     End Function
-
-    Sub CopyDirectory(ByVal sourcePath As String, ByVal destinationPath As String)
-        If Directory.Exists(sourcePath) Then
-            My.Computer.FileSystem.CopyDirectory(sourcePath, destinationPath, True)
-        Else
-            Throw New DirectoryNotFoundException("Source directory does not exist: " + sourcePath)
-        End If
-    End Sub
-
-    Sub CopyFile(ByVal sourcePath As String, ByVal destinationPath As String)
-        If File.Exists(sourcePath) Then
-            File.Copy(sourcePath, destinationPath, True)
-        Else
-            Throw New FileNotFoundException("Source file does not exist: " + sourcePath)
-        End If
-    End Sub
 
     Function CleanStringForPath(ByVal input As String) As String
         Dim invalidChars As Char() = IO.Path.GetInvalidFileNameChars()

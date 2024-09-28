@@ -137,11 +137,11 @@ Partial Class Form1
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point)
-        Label3.Location = New Point(23, 58)
+        Label3.Location = New Point(51, 56)
         Label3.Name = "Label3"
-        Label3.Size = New Size(249, 28)
+        Label3.Size = New Size(170, 28)
         Label3.TabIndex = 9
-        Label3.Text = "OFFLINE SAVE GAME TOOL"
+        Label3.Text = "SAVE GAME TOOL"
         ' 
         ' btnlogout
         ' 
