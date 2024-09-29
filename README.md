@@ -45,6 +45,13 @@ Make sure that all users who need access to the application have the necessary p
   <sharedFolder>\\192.168.1.100\Saves\</sharedFolder>
 </Variable>
 ```
+`YourComputerName` is also valid
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<Variable>
+  <sharedFolder>\\YourComputerName\Saves\</sharedFolder>
+</Variable>
+```
 
 #### 5. Run the Application
 - Execute the application.
