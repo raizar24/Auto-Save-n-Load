@@ -28,7 +28,7 @@ Make sure that all users who need access to the application have the necessary p
 
 #### 2. Download the Application
 - Go to the [latest release](https://github.com/raizar24/Auto-Save-n-Load/releases).
-- Download the zip file or executable.
+- Download the zip file.
 
 #### 3. Install the Application
 - Extract the files from the zip.
@@ -43,6 +43,13 @@ Make sure that all users who need access to the application have the necessary p
 <?xml version="1.0" encoding="utf-8" ?>
 <Variable>
   <sharedFolder>\\192.168.1.100\Saves\</sharedFolder>
+</Variable>
+```
+`YourComputerName` is your computer name of pc Server
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<Variable>
+  <sharedFolder>\\YourComputerName\Saves\</sharedFolder>
 </Variable>
 ```
 
