@@ -51,3 +51,17 @@ Make sure that all users who need access to the application have the necessary p
 - Execute the application.
 - Ensure administrative privileges are granted to allow symbolic link creation.
 
+### Client-Side Setup Instructions
+
+#### 5. Create a Shortcut
+- Create a shortcut file of the application on your desktop.
+- Right-click the shortcut, select `Properties`, and check the box for `Run as administrator` under the `Shortcut tab`.
+
+#### 6. Copy the Shortcut to Startup
+- Press `Win + R` to open the Run dialog.
+- Type `shell:startup` and press Enter.
+- Copy the shortcut you created in the previous step and paste it into the Startup folder.
+
+
+
+
