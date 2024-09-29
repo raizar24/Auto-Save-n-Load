@@ -2,7 +2,7 @@
 
 Computer rentals are typically configured with Deep Freeze to prevent any installations or changes after a restart, which also means that data from offline games is not saved. This application solves this issue by saving game data to a shared network folder, ensuring that game progress is preserved even after system restarts.
 
-**Auto-Save-n-Load** is a VB.NET application that provides a secure and efficient way to manage game data and user sessions across different users on a shared network. It handles authentication, symbolic links for game saves, and user-specific configurations, allowing each user to have separate game save folders.
+**Auto-Save-n-Load** is a VB.NET application that provides a secure and efficient way to manage game data and user sessions across different users on a shared network. It handles authentication folder management for game saves, and user-specific configurations, allowing each user to have separate game save folders.
 
 # Features
 - **Effortless Registration and Login**: Users can easily register and log in to their accounts, ensuring that their game progress is automatically saved on the server for seamless access.
