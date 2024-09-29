@@ -1,4 +1,5 @@
-﻿Imports System.Xml
+﻿Imports System.Net.Http
+Imports System.Xml
 
 Public Class settings
     Dim SaveMode As String
@@ -308,6 +309,49 @@ Public Class settings
         If Not pathNode Is Nothing Then
             Dim node = Decrypt(pathNode.InnerText)
             txtPass.Text = node
+        End If
+    End Sub
+
+
+    Sub updateXML()
+        Dim localFilePath As String = Form1.gamesXML
+        Dim githubRawUrl As String = "https://raw.githubusercontent.com/raizar24/Auto-Save-n-Load/refs/heads/master/Auto%20Save%20n%20Load/games.xml"
+        Dim rawXml As String = DownloadRawXml(githubRawUrl)
+        Dim localXml As XDocument = XDocument.Load(localFilePath)
+        Dim githubXml As XDocument = XDocument.Parse(rawXml)
+
+        UpdateLocalXml(localXml, githubXml)
+        localXml.Save(localFilePath)
+    End Sub
+
+    Function DownloadRawXml(url As String) As String
+        Using client As New HttpClient()
+            Return client.GetStringAsync(url).Result
+        End Using
+    End Function
+
+    Sub UpdateLocalXml(localXml As XDocument, githubXml As XDocument)
+        Dim localRoot As XElement = localXml.Root
+        Dim githubRoot As XElement = githubXml.Root
+
+        For Each githubGame As XElement In githubRoot.Elements("game")
+            Dim localGame As XElement = localRoot.Elements("game").FirstOrDefault(Function(e) e.Element("name")?.Value = githubGame.Element("name")?.Value)
+
+            If localGame IsNot Nothing Then
+                localGame.Element("path")?.SetValue(githubGame.Element("path")?.Value)
+            Else
+                localRoot.Add(githubGame)
+            End If
+        Next
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim result = MessageBox.Show("Do you want to update?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+        If result = DialogResult.Yes Then
+            updateXML()
+            ListBox1.Items.Clear()
+            ListBox1.Items.AddRange(loadList(Form1.gamesXML, "game", "name").ToArray())
+            MessageBox.Show("Game List updated", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub
 End Class

@@ -3,6 +3,14 @@ Imports System.Text.RegularExpressions
 Imports System.Xml
 
 Module mods
+
+    Sub CopyFile(ByVal sourcePath As String, ByVal destinationPath As String)
+        If File.Exists(sourcePath) Then
+            File.Copy(sourcePath, destinationPath, True)
+        Else
+            Throw New FileNotFoundException("Source file does not exist: " + sourcePath)
+        End If
+    End Sub
     Function loadList(ByVal xmlName As String, ByVal Descendant As String, ByVal element As String) As List(Of String)
         Dim doc As XDocument = XDocument.Load(xmlName)
         Dim listNames As List(Of String) = doc.Descendants(Descendant).Select(Function(game) game.Element(element).Value).ToList()

@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports Microsoft.SqlServer
 
 Public Class Form1
     Dim username As String = Environment.MachineName.ToUpper
@@ -19,6 +20,16 @@ Public Class Form1
             If Not CheckServerAvailability() Then
                 Exit Sub
             End If
+            If Not File.Exists(userXML) Then
+                CopyFile("users.xml", userXML)
+            End If
+
+            If Not File.Exists(gamesXML) Then
+                CopyFile("games.xml", gamesXML)
+            End If
+            If Not File.Exists(adminXML) Then
+                CopyFile("admin.xml", adminXML)
+            End If
             If Not checkSession() Then
                 lblCurrentUser.Text = username
                 If Not Directory.Exists(currentUser) Then
@@ -28,7 +39,7 @@ Public Class Form1
             End If
             checkCurrentUser()
         Catch ex As Exception
-            ShowError("Error during form load", ex)
+            ShowError("Please run this program as administrator", ex)
         End Try
     End Sub
 

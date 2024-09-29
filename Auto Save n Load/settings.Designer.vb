@@ -24,6 +24,7 @@ Partial Class settings
     Private Sub InitializeComponent()
         TabControl1 = New TabControl()
         TabPage1 = New TabPage()
+        Button2 = New Button()
         btnCancel = New Button()
         btnSave = New Button()
         ListBox1 = New ListBox()
@@ -68,6 +69,7 @@ Partial Class settings
         ' 
         ' TabPage1
         ' 
+        TabPage1.Controls.Add(Button2)
         TabPage1.Controls.Add(btnCancel)
         TabPage1.Controls.Add(btnSave)
         TabPage1.Controls.Add(ListBox1)
@@ -86,10 +88,20 @@ Partial Class settings
         TabPage1.Text = "Game management"
         TabPage1.UseVisualStyleBackColor = True
         ' 
+        ' Button2
+        ' 
+        Button2.Location = New Point(520, 346)
+        Button2.Name = "Button2"
+        Button2.Size = New Size(119, 41)
+        Button2.TabIndex = 29
+        Button2.Text = "Update Game List from Github"
+        Button2.UseVisualStyleBackColor = True
+        ' 
         ' btnCancel
         ' 
         btnCancel.Enabled = False
-        btnCancel.Location = New Point(434, 250)
+        btnCancel.Image = My.Resources.Resources.icons8_cancel_50
+        btnCancel.Location = New Point(438, 230)
         btnCancel.Name = "btnCancel"
         btnCancel.Size = New Size(114, 79)
         btnCancel.TabIndex = 28
@@ -100,7 +112,8 @@ Partial Class settings
         ' btnSave
         ' 
         btnSave.Enabled = False
-        btnSave.Location = New Point(314, 250)
+        btnSave.Image = My.Resources.Resources.icons8_save_48
+        btnSave.Location = New Point(318, 230)
         btnSave.Name = "btnSave"
         btnSave.Size = New Size(114, 79)
         btnSave.TabIndex = 27
@@ -148,7 +161,8 @@ Partial Class settings
         ' 
         ' btnDelete
         ' 
-        btnDelete.Location = New Point(492, 170)
+        btnDelete.Image = My.Resources.Resources.icons8_delete_30
+        btnDelete.Location = New Point(496, 150)
         btnDelete.Name = "btnDelete"
         btnDelete.Size = New Size(114, 74)
         btnDelete.TabIndex = 22
@@ -158,7 +172,8 @@ Partial Class settings
         ' 
         ' btnEdit
         ' 
-        btnEdit.Location = New Point(372, 170)
+        btnEdit.Image = My.Resources.Resources.icons8_edit_50
+        btnEdit.Location = New Point(376, 150)
         btnEdit.Name = "btnEdit"
         btnEdit.Size = New Size(114, 74)
         btnEdit.TabIndex = 21
@@ -168,7 +183,8 @@ Partial Class settings
         ' 
         ' btnAdd
         ' 
-        btnAdd.Location = New Point(252, 170)
+        btnAdd.Image = My.Resources.Resources.icons8_add_48
+        btnAdd.Location = New Point(256, 150)
         btnAdd.Name = "btnAdd"
         btnAdd.Size = New Size(114, 74)
         btnAdd.TabIndex = 20
@@ -207,6 +223,7 @@ Partial Class settings
         ' btncancel2
         ' 
         btncancel2.Enabled = False
+        btncancel2.Image = My.Resources.Resources.icons8_cancel_50
         btncancel2.Location = New Point(414, 260)
         btncancel2.Name = "btncancel2"
         btncancel2.Size = New Size(114, 76)
@@ -218,6 +235,7 @@ Partial Class settings
         ' btnsave2
         ' 
         btnsave2.Enabled = False
+        btnsave2.Image = My.Resources.Resources.icons8_save_48
         btnsave2.Location = New Point(294, 260)
         btnsave2.Name = "btnsave2"
         btnsave2.Size = New Size(114, 76)
@@ -264,6 +282,7 @@ Partial Class settings
         ' 
         ' btndelete2
         ' 
+        btndelete2.Image = My.Resources.Resources.icons8_delete_30
         btndelete2.Location = New Point(479, 174)
         btndelete2.Name = "btndelete2"
         btndelete2.Size = New Size(114, 80)
@@ -274,6 +293,7 @@ Partial Class settings
         ' 
         ' btnedit2
         ' 
+        btnedit2.Image = My.Resources.Resources.icons8_edit_50
         btnedit2.Location = New Point(359, 174)
         btnedit2.Name = "btnedit2"
         btnedit2.Size = New Size(114, 80)
@@ -284,6 +304,7 @@ Partial Class settings
         ' 
         ' btnadd2
         ' 
+        btnadd2.Image = My.Resources.Resources.icons8_add_48
         btnadd2.Location = New Point(239, 174)
         btnadd2.Name = "btnadd2"
         btnadd2.Size = New Size(114, 80)
@@ -386,4 +407,5 @@ Partial Class settings
     Friend WithEvents Button1 As Button
     Friend WithEvents Label5 As Label
     Friend WithEvents NewAdminPassword As TextBox
+    Friend WithEvents Button2 As Button
 End Class
