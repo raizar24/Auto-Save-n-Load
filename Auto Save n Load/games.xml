@@ -88,4 +88,56 @@
     <name>Prototype 2</name>
     <path>%USERPROFILE%\Documents\Activision\Prototype 2</path>
   </game>
+  <game>
+    <name>Ghost of Tsushima</name>
+    <path>%userprofile%\Documents\Ghost of Tsushima DIRECTOR'S CUT</path>
+  </game>
+  <game>
+    <name>Jujutsu Kaisen</name>
+    <path>%USERPROFILE%/AppData/Local/Jujutsu Kaisen CC/Saved/SaveGames</path>
+  </game>
+  <game>
+    <name>Watch Dogs 2</name>
+    <path>%username%\Documents\CPY_SAVES</path>
+  </game>
+  <game>
+    <name>Call of Duty Modern Warfare 3</name>
+    <path>C:\Program Files\Activision\Modern Warfare 3\players2</path>
+  </game>
+  <game>
+    <name>Gerda</name>
+    <path>%USERPROFILE%\AppData\LocalLow\PortaPlay\Gerda\Saves\</path>
+  </game>
+  <game>
+    <name>Hannahs Day</name>
+    <path>%USERPROFILE%/AppData/Local/HannahsDay/Saved/SaveGames</path>
+  </game>
+  <game>
+    <name>Harold Halibut</name>
+    <path>%USERPROFILE%/AppData/LocalLow/Slow Bros/Harold Halibut</path>
+  </game>
+  <game>
+    <name>Planet of Lana</name>
+    <path>%USERPROFILE%/AppData/LocalLow/Wishfully/Planet of Lana</path>
+  </game>
+  <game>
+    <name>World of Goo 2</name>
+    <path>%APPDATA%\Local\2DBoy\WorldOfGoo2</path>
+  </game>
+  <game>
+    <name>The Invincible</name>
+    <path>%USERPROFILE%/AppData/Local/TheInvincible\Saved\SaveGames</path>
+  </game>
+  <game>
+    <name>Max Payne 3 - Complete Edition</name>
+    <path>%USERPROFILE%\Documents\Rockstar Games\Max Payne 3\Profiles</path>
+  </game>
+  <game>
+    <name>Resident Evil 3</name>
+    <path>%userprofile%/appdata/roaming/HOODLUM</path>
+  </game>
+  <game>
+    <name>Mafia</name>
+    <path>%USERPROFILE%\Documents\My Games\Mafia Definitive Edition\</path>
+  </game>
 </games>
