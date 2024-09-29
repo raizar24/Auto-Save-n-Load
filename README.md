@@ -47,9 +47,12 @@ Make sure that all users who need access to the application have the necessary p
   <sharedFolder>\\192.168.1.100\Saves\</sharedFolder>
 </Variable>
 ```
+
 #### 5. Run the Application
 - Execute the application.
 - Ensure administrative privileges are granted to allow symbolic link creation.
+
+#### Setting default Password: 123123
 
 ### Client-Side Setup Instructions
 
