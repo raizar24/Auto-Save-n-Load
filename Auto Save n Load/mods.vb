@@ -35,10 +35,16 @@ Module mods
             If Not Directory.Exists(targetPath) Then
                 Directory.CreateDirectory(targetPath)
             End If
-            Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(sourcePath))
 
-            If Directory.Exists(sourceParentDirectory) Then
+            Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(sourcePath))
+            Dim sourceParentDirectory2 As String = IO.Path.GetDirectoryName(sourcePath)
+
+            If Not Directory.Exists(sourceParentDirectory) Then
                 Directory.CreateDirectory(sourceParentDirectory)
+            End If
+
+            If Not Directory.Exists(sourceParentDirectory2) Then
+                Directory.CreateDirectory(sourceParentDirectory2)
             End If
 
             doSymbolicLink(sourcePath, targetPath)
@@ -148,5 +154,17 @@ Module mods
         Next
         Return input
     End Function
+
+    Function GetFolderDepthFromString(folderPath As String) As Integer
+        Try
+            Dim pathParts As String() = folderPath.Split(New Char() {"\"c, "/"c}, StringSplitOptions.RemoveEmptyEntries)
+
+            Return pathParts.Length
+
+        Catch ex As Exception
+            Return 0
+        End Try
+    End Function
+
 
 End Module
