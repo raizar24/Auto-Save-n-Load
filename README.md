@@ -5,9 +5,9 @@ Computer rentals are typically configured with Deep Freeze to prevent any instal
 **Auto-Save-n-Load** is a VB.NET application that provides a secure and efficient way to manage game data and user sessions across different users on a shared network. It handles authentication, symbolic links for game saves, and user-specific configurations, allowing each user to have separate game save folders.
 
 # Features
-- **User Login / Pubic Save directory**
-- **Manual add game directory or you just click Update to get the latest game list**:
-- **Admin Settings**: Admin settings and user registration are accessible through additional forms.
+- **Effortless Registration and Login**: Users can easily register and log in to their accounts, ensuring that their game progress is automatically saved on the server for seamless access.
+- **User Login / Public Save Directory**: Players can choose between a personal login for private saves or access a public directory for shared game progress.
+- **Dynamic Game Directory Management**: Admin can manually add their game directories, or simply click the `Update"` button to automatically retrieve the latest game list available on the github:
 
 ---
 
