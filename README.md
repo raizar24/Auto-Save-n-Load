@@ -7,7 +7,7 @@ Computer rentals are typically configured with Deep Freeze to prevent any instal
 # Features
 - **Effortless Registration and Login**: Users can easily register and log in to their accounts, ensuring that their game progress is automatically saved on the server for seamless access.
 - **User Login / Public Save Directory**: Players can choose between a personal login for private saves or access a public directory for shared game progress.
-- **Dynamic Game Directory Management**: Admin can manually add their game directories, or simply click the `Update"` button to automatically retrieve the latest game list available on the github:
+- **Dynamic Game Directory Management**: Admin can manually add their game directories, or simply click the `Update"` button to automatically retrieve the latest game list available on the github repository:
 
 ---
 
