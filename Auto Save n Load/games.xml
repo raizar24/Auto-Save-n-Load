@@ -140,4 +140,76 @@
     <name>Mafia</name>
     <path>%USERPROFILE%\Documents\My Games\Mafia Definitive Edition\</path>
   </game>
+  <game>
+    <name>TOY STORY 3</name>
+    <path>%USERPROFILE%\Documents\Disney Interactive Studios\Toy Story 3\</path>
+  </game>
+  <game>
+    <name>TOTAL OVERDOSE</name>
+    <path>%USERPROFILE%\Documents\Total Overdose\savegames\</path>
+  </game>
+  <game>
+    <name>Resident Evil 7</name>
+    <path>%USERPROFILE%\Documents\Steam\CODEX\418370\remote\</path>
+  </game>
+  <game>
+    <name>Plants vs Zombies</name>
+    <path>%PROGRAMDATA%\PopCap Games\PlantsVsZombies</path>
+  </game>
+  <game>
+    <name>Sekiro</name>
+    <path>%PROGR%USERPROFILE%\AppData\Roaming\Sekiro\</path>
+  </game>
+  <game>
+    <name>NEED FOR SPEED HOT PURSUIT</name>
+    <path>%USERPROFILE%\Documents\Criterion Games\Need for Speed(TM) Hot Pursuit\</path>
+  </game>
+  <game>
+    <name>NEED FOR SPEED PAYBACK</name>
+    <path>%USERPROFILE%\Documents\Need for Speed(TM) Payback\SaveGame\</path>
+  </game>
+  <game>
+    <name>SNIPER GHOST WARRIOR CONTRACT</name>
+    <path>%USERPROFILE%\Saved Games\</path>
+  </game>
+  <game>
+    <name>SNIPER ELITE 3</name>
+    <path>%USERPROFILE%\AppData\Local\Sniper3\PC_ProfileSaves\</path>
+  </game>
+  <game>
+    <name>SNIPER ELITE 2 Remastered</name>
+    <path>%USERPROFILE%\AppData\Local\Sniper Elite V2 Remastered\PC_ProfileSaves\</path>
+  </game>
+  <game>
+    <name>ULTRA AGE</name>
+    <path>%USERPROFILE%\AppData\Local\PU\Saved\</path>
+  </game>
+  <game>
+    <name>HORIZON ZERO DAWN</name>
+    <path>%USERPROFILE%\Documents\Horizon Zero Dawn\</path>
+  </game>
+  <game>
+    <name>STAR OCEAN DIVINE FORCE</name>
+    <path>%USERPROFILE%\Documents\My Games\STAR OCEAN THE DIVINE FORCE\Steam\</path>
+  </game>
+  <game>
+    <name>VALKYRIE ELYSIUM</name>
+    <path>%USERPROFILE%\Documents\My Games\VALKYRIE ELYSIUM\Steam\</path>
+  </game>
+  <game>
+    <name>yugioh legacy of duelist</name>
+    <path>%USERPROFILE%\Documents\Steam\CODEX\</path>
+  </game>
+  <game>
+    <name>sniper elite 2</name>
+    <path>%USERPROFILE%\AppData\Local\SniperV2\PC_ProfileSaves\</path>
+  </game>
+  <game>
+    <name>Elden Ring</name>
+    <path>%USERPROFILE%\AppData\Roaming\EldenRing\</path>
+  </game>
+  <game>
+    <name>Octopath Traveler 2ng</name>
+    <path>%USERPROFILE%\Documents\My Games\Octopath_Traveler2\Steam\</path>
+  </game>
 </games>
