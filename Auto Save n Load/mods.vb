@@ -24,7 +24,7 @@ Module mods
 
         Dim gameNodes As XmlNodeList = xmlDoc.SelectNodes("//game")
 
-        'TODO: this logic does not work on %userprofile%documents
+        'TODO: this logic does not work on %userprofile%\documents
         For Each gameNode As XmlNode In gameNodes
             Dim nameNode As XmlNode = gameNode.SelectSingleNode("name")
             Dim pathNode As XmlNode = gameNode.SelectSingleNode("path")
