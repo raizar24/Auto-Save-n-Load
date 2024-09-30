@@ -24,6 +24,7 @@ Module mods
 
         Dim gameNodes As XmlNodeList = xmlDoc.SelectNodes("//game")
 
+        'TODO: this logic does not work on %userprofile%documents
         For Each gameNode As XmlNode In gameNodes
             Dim nameNode As XmlNode = gameNode.SelectSingleNode("name")
             Dim pathNode As XmlNode = gameNode.SelectSingleNode("path")
@@ -37,15 +38,15 @@ Module mods
             End If
 
             Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(sourcePath))
-            Dim sourceParentDirectory2 As String = IO.Path.GetDirectoryName(sourcePath)
+            Dim sourceParentDirectory2 As String = IO.Path.GetDirectoryName(sourcePath) 'gta 5 does not work on this
 
             If Not Directory.Exists(sourceParentDirectory) Then
                 Directory.CreateDirectory(sourceParentDirectory)
             End If
 
-            If Not Directory.Exists(sourceParentDirectory2) Then
-                Directory.CreateDirectory(sourceParentDirectory2)
-            End If
+            'If Not Directory.Exists(sourceParentDirectory2) Then
+            '    Directory.CreateDirectory(sourceParentDirectory2)
+            'End If
 
             doSymbolicLink(sourcePath, targetPath)
         Next
