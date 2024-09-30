@@ -52,20 +52,54 @@ Module mods
         Next
     End Sub
 
+
     Private Sub doSymbolicLink(ByVal sourcePath As String, ByVal targetPath As String)
+        Dim logFile As String = "logfile.txt"
         Dim command As String = "/C mklink /D """ & sourcePath & """ """ & targetPath & """"
 
-        Dim process As New Process()
-        With process.StartInfo
-            .FileName = "cmd.exe"
-            .Arguments = command
-            .WindowStyle = ProcessWindowStyle.Hidden
-            .CreateNoWindow = True
-        End With
+        Try
+            Using writer As StreamWriter = New StreamWriter(logFile, True)
+                writer.WriteLine($"{DateTime.Now}: Creating symbolic link from {sourcePath} to {targetPath}")
+            End Using
 
-        process.Start()
-        process.WaitForExit()
+            Dim process As New Process()
+            With process.StartInfo
+                .FileName = "cmd.exe"
+                .Arguments = command
+                .WindowStyle = ProcessWindowStyle.Hidden
+                .CreateNoWindow = True
+            End With
+
+            process.Start()
+            process.WaitForExit()
+
+            Using writer As StreamWriter = New StreamWriter(logFile, True)
+                writer.WriteLine($"{DateTime.Now}: Symbolic link created successfully.")
+            End Using
+
+        Catch ex As Exception
+            Using writer As StreamWriter = New StreamWriter(logFile, True)
+                writer.WriteLine($"{DateTime.Now}: Error creating symbolic link: {ex.Message}")
+            End Using
+        End Try
     End Sub
+
+
+
+    'Private Sub doSymbolicLink(ByVal sourcePath As String, ByVal targetPath As String)
+    '    Dim command As String = "/C mklink /D """ & sourcePath & """ """ & targetPath & """"
+
+    '    Dim process As New Process()
+    '    With process.StartInfo
+    '        .FileName = "cmd.exe"
+    '        .Arguments = command
+    '        .WindowStyle = ProcessWindowStyle.Hidden
+    '        .CreateNoWindow = True
+    '    End With
+
+    '    process.Start()
+    '    process.WaitForExit()
+    'End Sub
 
     Sub RemoveSymbolicLinks(ByVal xmlFile As String)
         Dim xmlDoc As New XmlDocument()
