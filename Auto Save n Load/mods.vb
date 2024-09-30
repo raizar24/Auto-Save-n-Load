@@ -19,38 +19,95 @@ Module mods
     End Function
 
     Sub CreateSymbolicLinks(ByVal xmlFile As String, ByVal destinationFolder As String)
-        Dim xmlDoc As New XmlDocument()
-        xmlDoc.Load(xmlFile)
+        Dim logFile As String = "symbolic_links_log.txt"
+        Try
+            Using writer As StreamWriter = New StreamWriter(logFile, True)
+                writer.WriteLine($"{DateTime.Now}: Starting the process for XML file '{xmlFile}' and destination folder '{destinationFolder}'")
+            End Using
 
-        Dim gameNodes As XmlNodeList = xmlDoc.SelectNodes("//game")
+            Dim xmlDoc As New XmlDocument()
+            xmlDoc.Load(xmlFile)
 
-        'TODO: this logic does not work on %userprofile%\documents
-        For Each gameNode As XmlNode In gameNodes
-            Dim nameNode As XmlNode = gameNode.SelectSingleNode("name")
-            Dim pathNode As XmlNode = gameNode.SelectSingleNode("path")
-            Dim gameName As String = CleanStringForPath(nameNode.InnerText)
-            Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
-            Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(sourcePath))
-            Dim targetPath As String = IO.Path.Combine(destinationFolder, gameName, folderName)
+            Dim gameNodes As XmlNodeList = xmlDoc.SelectNodes("//game")
 
-            If Not Directory.Exists(targetPath) Then
-                Directory.CreateDirectory(targetPath)
-            End If
+            For Each gameNode As XmlNode In gameNodes
+                Dim nameNode As XmlNode = gameNode.SelectSingleNode("name")
+                Dim pathNode As XmlNode = gameNode.SelectSingleNode("path")
+                Dim gameName As String = CleanStringForPath(nameNode.InnerText)
+                Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
+                Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(sourcePath))
+                Dim targetPath As String = IO.Path.Combine(destinationFolder, gameName, folderName)
 
-            Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(sourcePath))
-            Dim sourceParentDirectory2 As String = IO.Path.GetDirectoryName(sourcePath) 'gta 5 does not work on this
+                Using writer As StreamWriter = New StreamWriter(logFile, True)
+                    writer.WriteLine($"{DateTime.Now}: Processing game '{gameName}' with source path '{sourcePath}'")
+                End Using
 
-            If Not Directory.Exists(sourceParentDirectory) Then
-                Directory.CreateDirectory(sourceParentDirectory)
-            End If
+                If Not Directory.Exists(targetPath) Then
+                    Directory.CreateDirectory(targetPath)
+                    Using writer As StreamWriter = New StreamWriter(logFile, True)
+                        writer.WriteLine($"{DateTime.Now}: Created directory '{targetPath}'")
+                    End Using
+                End If
 
-            'If Not Directory.Exists(sourceParentDirectory2) Then
-            '    Directory.CreateDirectory(sourceParentDirectory2)
-            'End If
+                Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(sourcePath))
+                Dim sourceParentDirectory2 As String = IO.Path.GetDirectoryName(sourcePath)
 
-            doSymbolicLink(sourcePath, targetPath)
-        Next
+                If Not Directory.Exists(sourceParentDirectory) Then
+                    Directory.CreateDirectory(sourceParentDirectory)
+                    Using writer As StreamWriter = New StreamWriter(logFile, True)
+                        writer.WriteLine($"{DateTime.Now}: Created directory '{sourceParentDirectory}'")
+                    End Using
+                End If
+                doSymbolicLink(sourcePath, targetPath)
+            Next
+
+            Using writer As StreamWriter = New StreamWriter(logFile, True)
+                writer.WriteLine($"{DateTime.Now}: Successfully completed creating symbolic links for all games.")
+            End Using
+
+        Catch ex As Exception
+            Using writer As StreamWriter = New StreamWriter(logFile, True)
+                writer.WriteLine($"{DateTime.Now}: Error occurred: {ex.Message}")
+            End Using
+        End Try
     End Sub
+
+
+
+    'Sub CreateSymbolicLinks(ByVal xmlFile As String, ByVal destinationFolder As String)
+    '    Dim xmlDoc As New XmlDocument()
+    '    xmlDoc.Load(xmlFile)
+
+    '    Dim gameNodes As XmlNodeList = xmlDoc.SelectNodes("//game")
+
+    '    'TODO: this logic does not work on %userprofile%\documents
+    '    For Each gameNode As XmlNode In gameNodes
+
+    '        Dim nameNode As XmlNode = gameNode.SelectSingleNode("name")
+    '        Dim pathNode As XmlNode = gameNode.SelectSingleNode("path")
+    '        Dim gameName As String = CleanStringForPath(nameNode.InnerText)
+    '        Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
+    '        Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(sourcePath))
+    '        Dim targetPath As String = IO.Path.Combine(destinationFolder, gameName, folderName)
+
+    '        If Not Directory.Exists(targetPath) Then
+    '            Directory.CreateDirectory(targetPath)
+    '        End If
+
+    '        Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(sourcePath))
+    '        Dim sourceParentDirectory2 As String = IO.Path.GetDirectoryName(sourcePath) 'gta 5 does not work on this
+
+    '        If Not Directory.Exists(sourceParentDirectory) Then
+    '            Directory.CreateDirectory(sourceParentDirectory)
+    '        End If
+
+    '        'If Not Directory.Exists(sourceParentDirectory2) Then
+    '        '    Directory.CreateDirectory(sourceParentDirectory2)
+    '        'End If
+
+    '        doSymbolicLink(sourcePath, targetPath)
+    '    Next
+    'End Sub
 
 
     Private Sub doSymbolicLink(ByVal sourcePath As String, ByVal targetPath As String)
@@ -200,6 +257,9 @@ Module mods
             Return 0
         End Try
     End Function
+
+
+
 
 
 End Module
