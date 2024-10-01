@@ -228,4 +228,16 @@
     <name>Mortal Kombat 11</name>
     <path>%userprofile%\AppData\Roaming\EMPRESS\976310\remote\976310</path>
   </game>
+  <game>
+    <name>The Witcher 3</name>
+    <path>%userprofile%\Documents\The Witcher 3</path>
+  </game>
+  <game>
+    <name>Tomb Raider HD</name>
+    <path>C:\Users\Public\Documents\MicrosoftStore\RUNE\Tomb Raider Definitive Edition [31441469]\1337133713371337</path>
+  </game>
+  <game>
+    <name>The Sims 4</name>
+    <path>%userprofile%\Documents\Electronic Arts\The Sims 4\</path>
+  </game>
 </games>
