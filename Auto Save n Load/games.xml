@@ -212,4 +212,20 @@
     <name>Devil May Cry 5</name>
     <path>%userprofile%\documents\steam\Codex\601150\</path>
   </game>
+  <game>
+    <name>Devil may cry 5 fitgirl</name>
+    <path>%userprofile%\AppData\Roaming\HOODLUM</path>
+  </game>
+  <game>
+    <name>Amedama</name>
+    <path>%USERPROFILE%/AppData/LocalLow/Izanagigames/</path>
+  </game>
+  <game>
+    <name>NBA 2K22</name>
+    <path>%userprofile%\Documents\Steam\CODEX\1644960</path>
+  </game>
+  <game>
+    <name>Mortal Kombat 11</name>
+    <path>%userprofile%\AppData\Roaming\EMPRESS\976310\remote\976310</path>
+  </game>
 </games>
