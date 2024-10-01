@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Runtime.InteropServices
 Imports Microsoft.SqlServer
 
 Public Class Form1
@@ -10,7 +11,40 @@ Public Class Form1
     Dim currentUser As String = Path.Combine(serverLocation, username)
     Dim userSession As String = Path.Combine(Path.GetTempPath(), "session.txt")
 
+    <DllImport("user32.dll")>
+    Private Shared Function ShowWindow(hWnd As IntPtr, nCmdShow As Integer) As Boolean
+    End Function
+
+    <DllImport("user32.dll")>
+    Private Shared Function SetForegroundWindow(hWnd As IntPtr) As Boolean
+    End Function
+    Private Const SW_SHOW As Integer = 9
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        ' Check for already running instance
+        Dim currentProcess As Process = Process.GetCurrentProcess()
+        Dim runningProcess As Process() = Process.GetProcessesByName(currentProcess.ProcessName)
+
+        ' Bring the already running instance to the foreground if found
+        For Each process As Process In runningProcess
+            If process.Id <> currentProcess.Id Then
+                ShowWindow(process.MainWindowHandle, SW_SHOW)
+                SetForegroundWindow(process.MainWindowHandle)
+                MessageBox.Show("Program already running.", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Me.Close() ' Close this instance if another is already running
+                Return ' Exit this instance
+            End If
+        Next
+        '' Terminate the existing instance if found
+        'For Each process As Process In runningProcesses
+        '    If process.Id <> currentProcess.Id Then
+        '        ' Terminate the existing instance
+        '        process.Kill()
+        '        process.WaitForExit() ' Optional: Wait for the process to exit
+        '        Exit For
+        '    End If
+        'Next
         Me.StartPosition = FormStartPosition.Manual
         Dim xValue = Screen.PrimaryScreen.Bounds.Width - 300
         Dim yValue = Screen.PrimaryScreen.Bounds.Height - 500
@@ -78,7 +112,7 @@ Public Class Form1
     End Sub
 
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        Me.Close()
+        Me.Hide()
     End Sub
 
     Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
@@ -159,5 +193,20 @@ Public Class Form1
         Else
             lblUser.Text = "CURRENT USER"
         End If
+    End Sub
+
+    Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenToolStripMenuItem.Click
+        Me.Show()
+        Me.WindowState = FormWindowState.Normal
+    End Sub
+
+    Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
+        Me.Show()
+        Me.WindowState = FormWindowState.Normal
+    End Sub
+
+    Private Sub QuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles QuitToolStripMenuItem.Click
+        NotifyIcon1.Visible = False
+        Application.Exit()
     End Sub
 End Class

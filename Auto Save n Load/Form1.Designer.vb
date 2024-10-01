@@ -22,6 +22,8 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         btnClose = New Button()
         txtUserName = New TextBox()
         txtPassword = New TextBox()
@@ -34,6 +36,11 @@ Partial Class Form1
         Label3 = New Label()
         btnlogout = New Button()
         btnSettings = New Button()
+        NotifyIcon1 = New NotifyIcon(components)
+        ContextMenuStrip1 = New ContextMenuStrip(components)
+        OpenToolStripMenuItem = New ToolStripMenuItem()
+        QuitToolStripMenuItem = New ToolStripMenuItem()
+        ContextMenuStrip1.SuspendLayout()
         SuspendLayout()
         ' 
         ' btnClose
@@ -166,6 +173,31 @@ Partial Class Form1
         btnSettings.Text = "Settings"
         btnSettings.UseVisualStyleBackColor = True
         ' 
+        ' NotifyIcon1
+        ' 
+        NotifyIcon1.ContextMenuStrip = ContextMenuStrip1
+        NotifyIcon1.Icon = CType(resources.GetObject("NotifyIcon1.Icon"), Icon)
+        NotifyIcon1.Text = "Auto Save N Load"
+        NotifyIcon1.Visible = True
+        ' 
+        ' ContextMenuStrip1
+        ' 
+        ContextMenuStrip1.Items.AddRange(New ToolStripItem() {OpenToolStripMenuItem, QuitToolStripMenuItem})
+        ContextMenuStrip1.Name = "ContextMenuStrip1"
+        ContextMenuStrip1.Size = New Size(104, 48)
+        ' 
+        ' OpenToolStripMenuItem
+        ' 
+        OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
+        OpenToolStripMenuItem.Size = New Size(103, 22)
+        OpenToolStripMenuItem.Text = "Open"
+        ' 
+        ' QuitToolStripMenuItem
+        ' 
+        QuitToolStripMenuItem.Name = "QuitToolStripMenuItem"
+        QuitToolStripMenuItem.Size = New Size(103, 22)
+        QuitToolStripMenuItem.Text = "Quit"
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -188,6 +220,7 @@ Partial Class Form1
         Name = "Form1"
         StartPosition = FormStartPosition.Manual
         Text = "Form1"
+        ContextMenuStrip1.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -204,5 +237,9 @@ Partial Class Form1
     Friend WithEvents Label3 As Label
     Friend WithEvents btnlogout As Button
     Friend WithEvents btnSettings As Button
+    Friend WithEvents NotifyIcon1 As NotifyIcon
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents QuitToolStripMenuItem As ToolStripMenuItem
 
 End Class
