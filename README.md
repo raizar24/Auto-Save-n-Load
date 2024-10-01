@@ -45,6 +45,8 @@ Make sure that all users who need access to the application have the necessary p
   <sharedFolder>\\192.168.1.100\Saves\</sharedFolder>
 </Variable>
 ```
+or you can do this
+
 `YourComputerName` is your computer name of pc Server
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
