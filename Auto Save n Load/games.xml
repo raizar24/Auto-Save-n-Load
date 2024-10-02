@@ -264,4 +264,8 @@
     <name>GTA IV</name>
     <path>%userprofile%\AppData\Roaming\Goldberg SocialClub Emu Saves\GTA IV\</path>
   </game>
+  <game>
+    <name>Red Dead Redemption 2 Fitgirl</name>
+    <path>%appdata%\.1911\Red Dead Redemption 2\</path>
+  </game>
 </games>
