@@ -20,18 +20,24 @@ Public Class Form1
     End Function
     Private Const SW_SHOW As Integer = 5
     Private Const SW_RESTORE As Integer = 9
+    Private Const SW_NORMAL As Integer = 1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim currentProcess As Process = Process.GetCurrentProcess()
-        Dim runningProcess As Process() = Process.GetProcessesByName(currentProcess.ProcessName)
+        Dim runningProcesses As Process() = Process.GetProcessesByName(currentProcess.ProcessName)
 
-        For Each process As Process In runningProcess
+        ' Bring the already running instance to the foreground if found
+        For Each process As Process In runningProcesses
             If process.Id <> currentProcess.Id Then
-                ShowWindow(process.MainWindowHandle, SW_RESTORE)
-                SetForegroundWindow(process.MainWindowHandle)
+                If process.MainWindowHandle <> IntPtr.Zero Then
+                    ' Instead of using ShowWindow, restore the form using .Show()
+                    Me.Show() ' Use Me.Show() to unhide the form
+                    SetForegroundWindow(process.MainWindowHandle)
+                End If
+
                 MessageBox.Show("Program already running.", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Me.Close()
-                Return
+                Me.Close() ' Close this instance if another is already running
+                Return ' Exit this instance
             End If
         Next
 

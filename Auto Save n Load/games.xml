@@ -6,7 +6,7 @@
   </game>
   <game>
     <name>Red Dead Redemption 2</name>
-    <path>%AppData%\Goldberg SocialClub Emu Saves\RDR2\0F74F4C4</path>
+    <path>%AppData%\Goldberg SocialClub Emu Saves\RDR2\</path>
   </game>
   <game>
     <name>God of War</name>
@@ -141,6 +141,10 @@
     <path>%USERPROFILE%\Documents\My Games\Mafia Definitive Edition\</path>
   </game>
   <game>
+    <name>Warhammer 40000 - Space Marine</name>
+    <path>%userprofile%\AppData\Local\THQ\Relic Entertainment\Space Marine\</path>
+  </game>
+  <game>
     <name>TOY STORY 3</name>
     <path>%USERPROFILE%\Documents\Disney Interactive Studios\Toy Story 3\</path>
   </game>
@@ -229,6 +233,10 @@
     <path>%userprofile%\AppData\Roaming\EMPRESS\976310\remote\976310</path>
   </game>
   <game>
+    <name>Devil may cry 5 fitgirl</name>
+    <path>%userprofile%\AppData\Roaming\HOODLUM</path>
+  </game>
+  <game>
     <name>The Witcher 3</name>
     <path>%userprofile%\Documents\The Witcher 3</path>
   </game>
@@ -239,5 +247,21 @@
   <game>
     <name>The Sims 4</name>
     <path>%userprofile%\Documents\Electronic Arts\The Sims 4\</path>
+  </game>
+  <game>
+    <name>Last of Us Part 1</name>
+    <path>%userprofile%\Saved Games\The Last of Us Part I\users</path>
+  </game>
+  <game>
+    <name>Alan Wake 2</name>
+    <path>%userprofile%\AppData\Local\Remedy\AlanWake2</path>
+  </game>
+  <game>
+    <name>Warhammer 40000 - Space Marine 2</name>
+    <path>%userprofile%\AppData\Local\Saber\Space Marine 2</path>
+  </game>
+  <game>
+    <name>GTA IV</name>
+    <path>%userprofile%\AppData\Roaming\Goldberg SocialClub Emu Saves\GTA IV\0F74F4C4</path>
   </game>
 </games>
