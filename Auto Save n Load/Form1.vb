@@ -18,33 +18,23 @@ Public Class Form1
     <DllImport("user32.dll")>
     Private Shared Function SetForegroundWindow(hWnd As IntPtr) As Boolean
     End Function
-    Private Const SW_SHOW As Integer = 9
-
+    Private Const SW_SHOW As Integer = 5
+    Private Const SW_RESTORE As Integer = 9
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ' Check for already running instance
         Dim currentProcess As Process = Process.GetCurrentProcess()
         Dim runningProcess As Process() = Process.GetProcessesByName(currentProcess.ProcessName)
 
-        ' Bring the already running instance to the foreground if found
         For Each process As Process In runningProcess
             If process.Id <> currentProcess.Id Then
-                ShowWindow(process.MainWindowHandle, SW_SHOW)
+                ShowWindow(process.MainWindowHandle, SW_RESTORE)
                 SetForegroundWindow(process.MainWindowHandle)
                 MessageBox.Show("Program already running.", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Me.Close() ' Close this instance if another is already running
-                Return ' Exit this instance
+                Me.Close()
+                Return
             End If
         Next
-        '' Terminate the existing instance if found
-        'For Each process As Process In runningProcesses
-        '    If process.Id <> currentProcess.Id Then
-        '        ' Terminate the existing instance
-        '        process.Kill()
-        '        process.WaitForExit() ' Optional: Wait for the process to exit
-        '        Exit For
-        '    End If
-        'Next
+
         Me.StartPosition = FormStartPosition.Manual
         Dim xValue = Screen.PrimaryScreen.Bounds.Width - 300
         Dim yValue = Screen.PrimaryScreen.Bounds.Height - 500
