@@ -76,13 +76,14 @@ or you can do this
 
 #### Setting default Password: 123123
 ### Path Structure Rules for adding game's save directories
+
 - **%appdata%**: `C:\Users\<Username>\AppData\Roaming`
 - **%userprofile%**: `C:\Users\<Username>`
 - **%localappdata%**: `C:\Users\<Username>\AppData\Local`
 - **%programdata%**: `C:\ProgramData`
 
+- please follow these rules to ensure proper functionality:
 - **One-Level Deep Paths**: These paths contain a single folder immediately under the specified system folder. For example, a path like `%userprofile%\Documents\MyGame\` is considered one-level deep because "MyGame" is directly under "Documents."
-  
 - **Two-Level Deep Paths**: These paths consist of two nested folders under the specified system folder. For instance, a path like `%userprofile%\AppData\Local\MyGame\Saves\` is two-level deep, as "MyGame" is a folder under "Local" and "Saves" is a subfolder under "MyGame."
 
 Here are specific examples of each type of path:
