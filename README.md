@@ -82,7 +82,7 @@ or you can do this
 - **%localappdata%**: `C:\Users\<Username>\AppData\Local`
 - **%programdata%**: `C:\ProgramData`
 
-- please follow these rules to ensure proper functionality:
+### please follow these rules to ensure proper functionality:
 - **One-Level Deep Paths**: These paths contain a single folder immediately under the specified system folder. For example, a path like `%userprofile%\Documents\MyGame\` is considered one-level deep because "MyGame" is directly under "Documents."
 - **Two-Level Deep Paths**: These paths consist of two nested folders under the specified system folder. For instance, a path like `%userprofile%\AppData\Local\MyGame\Saves\` is two-level deep, as "MyGame" is a folder under "Local" and "Saves" is a subfolder under "MyGame."
 
