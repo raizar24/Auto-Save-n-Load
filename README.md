@@ -75,13 +75,16 @@ or you can do this
 
 
 ### Path Structure Rules
+- **%appdata%**: `C:\Users\<Username>\AppData\Roaming`
+- **%userprofile%**: `C:\Users\<Username>`
+- **%localappdata%**: `C:\Users\<Username>\AppData\Local`
+- **%programdata%**: `C:\ProgramData`
+
 - **One-Level Deep Paths**: These paths contain a single folder immediately under the specified system folder. For example, a path like `%userprofile%\Documents\MyGame\` is considered one-level deep because "MyGame" is directly under "Documents."
   
 - **Two-Level Deep Paths**: These paths consist of two nested folders under the specified system folder. For instance, a path like `%userprofile%\AppData\Local\MyGame\Saves\` is two-level deep, as "MyGame" is a folder under "Local" and "Saves" is a subfolder under "MyGame."
 
 Here are specific examples of each type of path:
-
-
 ### 1. %appdata%
 - **Description**: Points to the Application Data folder for the current user.
 
