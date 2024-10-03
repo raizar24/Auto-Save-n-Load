@@ -130,7 +130,7 @@
   </game>
   <game>
     <name>Max Payne 3 - Complete Edition</name>
-    <path>%USERPROFILE%\Documents\Rockstar Games\Max Payne 3\</path>
+    <path>%appdata%\Goldberg SocialClub Emu Saves\Max Payne 3</path>
   </game>
   <game>
     <name>Mafia</name>
