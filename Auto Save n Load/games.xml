@@ -2,7 +2,7 @@
 <games>
   <game>
     <name>GTA 5</name>
-    <path>%USERPROFILE%\AppData\Roaming\Goldberg SocialClub Emu Saves\GTA V\0F74F4C4\</path>
+    <path>%USERPROFILE%\AppData\Roaming\Goldberg SocialClub Emu Saves\GTA V</path>
   </game>
   <game>
     <name>Red Dead Redemption 2</name>
@@ -10,15 +10,15 @@
   </game>
   <game>
     <name>God of War</name>
-    <path>%userprofile%\Saved Games\God of War\6300451</path>
+    <path>%userprofile%\Saved Games\God of War</path>
   </game>
   <game>
     <name>God of War: Ragnarok</name>
-    <path>%userprofile%\Saved Games\God of War Ragnarök\6144</path>
+    <path>%userprofile%\Saved Games\God of War Ragnarök</path>
   </game>
   <game>
     <name>Chained Together</name>
-    <path>%USERPROFILE%/AppData/Local/ChainedTogether/Saved/SaveGames</path>
+    <path>%USERPROFILE%/AppData/Local/ChainedTogether/</path>
   </game>
   <game>
     <name>Devil May Cry 4</name>
@@ -26,11 +26,11 @@
   </game>
   <game>
     <name>Goat Simulator 3</name>
-    <path>%LOCALAPPDATA%\Goat2\Saved\SaveGames\</path>
+    <path>%LOCALAPPDATA%\Goat2\</path>
   </game>
   <game>
     <name>Helldrivers</name>
-    <path>%APPDATA%\Arrowhead\Helldivers\saves</path>
+    <path>%APPDATA%\Arrowhead\Helldivers</path>
   </game>
   <game>
     <name>NBA 2k21</name>
@@ -42,7 +42,7 @@
   </game>
   <game>
     <name>One Piece Pirate Warriors 4</name>
-    <path>%LOCALAPPDATA%\BANDAI NAMCO Entertainment\One Piece Pirate Warriors 4\Saved\SaveGames</path>
+    <path>%LOCALAPPDATA%\BANDAI NAMCO Entertainment\One Piece Pirate Warriors 4\</path>
   </game>
   <game>
     <name>Prototype</name>
@@ -94,7 +94,7 @@
   </game>
   <game>
     <name>Jujutsu Kaisen</name>
-    <path>%USERPROFILE%/AppData/Local/Jujutsu Kaisen CC/Saved/SaveGames</path>
+    <path>%USERPROFILE%/AppData/Local/Jujutsu Kaisen CC/Saved/</path>
   </game>
   <game>
     <name>Watch Dogs 2</name>
@@ -102,19 +102,19 @@
   </game>
   <game>
     <name>Call of Duty Modern Warfare 3</name>
-    <path>C:\Program Files\Activision\Modern Warfare 3\players2</path>
+    <path>C:\Program Files\Activision</path>
   </game>
   <game>
     <name>Gerda</name>
-    <path>%USERPROFILE%\AppData\LocalLow\PortaPlay\Gerda\Saves\</path>
+    <path>%USERPROFILE%\AppData\LocalLow\PortaPlay</path>
   </game>
   <game>
     <name>Hannahs Day</name>
-    <path>%USERPROFILE%/AppData/Local/HannahsDay/Saved/SaveGames</path>
+    <path>%USERPROFILE%/AppData/Local/HannahsDay</path>
   </game>
   <game>
     <name>Harold Halibut</name>
-    <path>%USERPROFILE%/AppData/LocalLow/Slow Bros/Harold Halibut</path>
+    <path>%USERPROFILE%/AppData/LocalLow/Slow Bros/</path>
   </game>
   <game>
     <name>Planet of Lana</name>
@@ -142,7 +142,7 @@
   </game>
   <game>
     <name>Warhammer 40000 - Space Marine</name>
-    <path>%userprofile%\AppData\Local\THQ\Relic Entertainment\Space Marine\</path>
+    <path>%userprofile%\AppData\Local\THQ\</path>
   </game>
   <game>
     <name>TOY STORY 3</name>
@@ -197,10 +197,6 @@
     <path>%USERPROFILE%\Documents\My Games\VALKYRIE ELYSIUM\Steam\</path>
   </game>
   <game>
-    <name>yugioh legacy of duelist</name>
-    <path>%USERPROFILE%\Documents\Steam\CODEX\</path>
-  </game>
-  <game>
     <name>sniper elite 2</name>
     <path>%USERPROFILE%\AppData\Local\SniperV2\PC_ProfileSaves\</path>
   </game>
@@ -217,10 +213,6 @@
     <path>%userprofile%\documents\steam\Codex\601150\</path>
   </game>
   <game>
-    <name>Devil may cry 5 fitgirl</name>
-    <path>%userprofile%\AppData\Roaming\HOODLUM</path>
-  </game>
-  <game>
     <name>Amedama</name>
     <path>%USERPROFILE%/AppData/LocalLow/Izanagigames/</path>
   </game>
@@ -230,7 +222,7 @@
   </game>
   <game>
     <name>Mortal Kombat 11</name>
-    <path>%userprofile%\AppData\Roaming\EMPRESS\976310\remote\976310</path>
+    <path>%userprofile%\AppData\Roaming\EMPRESS\976310</path>
   </game>
   <game>
     <name>Devil may cry 5 fitgirl</name>
@@ -242,7 +234,7 @@
   </game>
   <game>
     <name>Tomb Raider HD</name>
-    <path>C:\Users\Public\Documents\MicrosoftStore\RUNE\Tomb Raider Definitive Edition [31441469]\1337133713371337</path>
+    <path>C:\Users\Public\Documents\MicrosoftStore\RUNE\Tomb Raider Definitive Edition [31441469]</path>
   </game>
   <game>
     <name>The Sims 4</name>
@@ -250,7 +242,7 @@
   </game>
   <game>
     <name>Last of Us Part 1</name>
-    <path>%userprofile%\Saved Games\The Last of Us Part I\users</path>
+    <path>%userprofile%\Saved Games\The Last of Us Part I\</path>
   </game>
   <game>
     <name>Alan Wake 2</name>

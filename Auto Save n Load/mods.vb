@@ -71,45 +71,6 @@ Module mods
             End Using
         End Try
     End Sub
-
-
-
-    'Sub CreateSymbolicLinks(ByVal xmlFile As String, ByVal destinationFolder As String)
-    '    Dim xmlDoc As New XmlDocument()
-    '    xmlDoc.Load(xmlFile)
-
-    '    Dim gameNodes As XmlNodeList = xmlDoc.SelectNodes("//game")
-
-    '    'TODO: this logic does not work on %userprofile%\documents
-    '    For Each gameNode As XmlNode In gameNodes
-
-    '        Dim nameNode As XmlNode = gameNode.SelectSingleNode("name")
-    '        Dim pathNode As XmlNode = gameNode.SelectSingleNode("path")
-    '        Dim gameName As String = CleanStringForPath(nameNode.InnerText)
-    '        Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
-    '        Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(sourcePath))
-    '        Dim targetPath As String = IO.Path.Combine(destinationFolder, gameName, folderName)
-
-    '        If Not Directory.Exists(targetPath) Then
-    '            Directory.CreateDirectory(targetPath)
-    '        End If
-
-    '        Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(sourcePath))
-    '        Dim sourceParentDirectory2 As String = IO.Path.GetDirectoryName(sourcePath) 'gta 5 does not work on this
-
-    '        If Not Directory.Exists(sourceParentDirectory) Then
-    '            Directory.CreateDirectory(sourceParentDirectory)
-    '        End If
-
-    '        'If Not Directory.Exists(sourceParentDirectory2) Then
-    '        '    Directory.CreateDirectory(sourceParentDirectory2)
-    '        'End If
-
-    '        doSymbolicLink(sourcePath, targetPath)
-    '    Next
-    'End Sub
-
-
     Private Sub doSymbolicLink(ByVal sourcePath As String, ByVal targetPath As String)
         Dim logFile As String = "logfile.txt"
         Dim command As String = "/C mklink /D """ & sourcePath & """ """ & targetPath & """"
@@ -140,23 +101,6 @@ Module mods
             End Using
         End Try
     End Sub
-
-
-
-    'Private Sub doSymbolicLink(ByVal sourcePath As String, ByVal targetPath As String)
-    '    Dim command As String = "/C mklink /D """ & sourcePath & """ """ & targetPath & """"
-
-    '    Dim process As New Process()
-    '    With process.StartInfo
-    '        .FileName = "cmd.exe"
-    '        .Arguments = command
-    '        .WindowStyle = ProcessWindowStyle.Hidden
-    '        .CreateNoWindow = True
-    '    End With
-
-    '    process.Start()
-    '    process.WaitForExit()
-    'End Sub
 
     Sub RemoveSymbolicLinks(ByVal xmlFile As String)
         Dim xmlDoc As New XmlDocument()
