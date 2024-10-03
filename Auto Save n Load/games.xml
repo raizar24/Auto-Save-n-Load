@@ -133,10 +133,6 @@
     <path>%USERPROFILE%\Documents\Rockstar Games\Max Payne 3\</path>
   </game>
   <game>
-    <name>Resident Evil 3</name>
-    <path>%userprofile%/appdata/roaming/HOODLUM/</path>
-  </game>
-  <game>
     <name>Mafia</name>
     <path>%USERPROFILE%\Documents\My Games\Mafia Definitive Edition\</path>
   </game>
