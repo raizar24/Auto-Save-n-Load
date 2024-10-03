@@ -260,4 +260,36 @@
     <name>Red Dead Redemption 2 Fitgirl</name>
     <path>%appdata%\.1911\Red Dead Redemption 2\</path>
   </game>
+  <game>
+    <name>Dead Island - Definitive Edition</name>
+    <path>%appdata%\Steam\CODEX\383150\</path>
+  </game>
+  <game>
+    <name>Dead Island Riptide - Definitive Edition</name>
+    <path>C:\Users\Roy\AppData\Roaming\Steam\CODEX\383180\</path>
+  </game>
+  <game>
+    <name>Sniper Ghost Warrior Contracts 2</name>
+    <path>C:\Users\Public\Documents\Steam\CODEX\1338770\</path>
+  </game>
+  <game>
+    <name>Sniper Ghost Warrior Contracts 2 - 2nd location</name>
+    <path>%userprofile%\Saved Games\Sniper Ghost Warrior Contracts 2\</path>
+  </game>
+  <game>
+    <name>Spider-Man Miles Morales</name>
+    <path>%userprofile%\Documents\Marvel's Spider-Man Miles Morales\</path>
+  </game>
+  <game>
+    <name>Minecraft Legends</name>
+    <path>%APPDATA%\Minecraft Legends\</path>
+  </game>
+  <game>
+    <name>Minercraft Dungeon Save Location 1</name>
+    <path>%userprofile%\Saved Games\Mojang Studios\Dungeons\</path>
+  </game>
+  <game>
+    <name>Minecraft Dungeon Save Location 2</name>
+    <path>%userprofile%\AppData\Local\Dungeons\</path>
+  </game>
 </games>
