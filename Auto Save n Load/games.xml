@@ -2,7 +2,7 @@
 <games>
   <game>
     <name>GTA 5</name>
-    <path>%USERPROFILE%\AppData\Roaming\Goldberg SocialClub Emu Saves\GTA V</path>
+    <path>%USERPROFILE%\AppData\Roaming\Goldberg SocialClub Emu Saves\GTA V\</path>
   </game>
   <game>
     <name>Red Dead Redemption 2</name>
@@ -10,11 +10,11 @@
   </game>
   <game>
     <name>God of War</name>
-    <path>%userprofile%\Saved Games\God of War</path>
+    <path>%userprofile%\Saved Games\God of War\</path>
   </game>
   <game>
     <name>God of War: Ragnarok</name>
-    <path>%userprofile%\Saved Games\God of War Ragnarök</path>
+    <path>%userprofile%\Saved Games\God of War Ragnarök\</path>
   </game>
   <game>
     <name>Chained Together</name>
@@ -22,7 +22,7 @@
   </game>
   <game>
     <name>Devil May Cry 4</name>
-    <path>%userprofile%\Documents\CAPCOM\DEVILMAYCRY4</path>
+    <path>%userprofile%\Documents\CAPCOM\DEVILMAYCRY4\</path>
   </game>
   <game>
     <name>Goat Simulator 3</name>
@@ -30,15 +30,15 @@
   </game>
   <game>
     <name>Helldrivers</name>
-    <path>%APPDATA%\Arrowhead\Helldivers</path>
+    <path>%APPDATA%\Arrowhead\Helldivers\</path>
   </game>
   <game>
     <name>NBA 2k21</name>
-    <path>%PROGRAMDATA%\2K Sports\NBA 2K21</path>
+    <path>%PROGRAMDATA%\2K Sports\NBA 2K21\</path>
   </game>
   <game>
     <name>Need For Speed Most Wanted</name>
-    <path>%userprofile%\Documents\NFS Most Wanted</path>
+    <path>%userprofile%\Documents\NFS Most Wanted\</path>
   </game>
   <game>
     <name>One Piece Pirate Warriors 4</name>
@@ -54,11 +54,11 @@
   </game>
   <game>
     <name>Selfloss</name>
-    <path>%USERPROFILE%\AppData\LocalLow\Squid Shock Studios\Bo</path>
+    <path>%USERPROFILE%\AppData\LocalLow\Squid Shock Studios\Bo\</path>
   </game>
   <game>
     <name>Spiderman Remastered</name>
-    <path>%userprofile%\Documents\Marvel's Spider-Man Remastered</path>
+    <path>%userprofile%\Documents\Marvel's Spider-Man Remastered\</path>
   </game>
   <game>
     <name>Stray</name>
@@ -66,7 +66,7 @@
   </game>
   <game>
     <name>Sunset Hills</name>
-    <path>%USERPROFILE%/AppData/LocalLow/CottonGame/SunsetHills_Steam\</path>
+    <path>%USERPROFILE%/AppData/LocalLow/CottonGame/SunsetHills_Steam/</path>
   </game>
   <game>
     <name>Terraria</name>
@@ -78,7 +78,7 @@
   </game>
   <game>
     <name>Thought Experiment Simulator</name>
-    <path>%USERPROFILE%\AppData\LocalLow\Landfall Games\Totally Accurate Battle Simulator\Saved</path>
+    <path>%USERPROFILE%\AppData\LocalLow\Landfall Games\Totally Accurate Battle Simulator\</path>
   </game>
   <game>
     <name>GTA San Andreas</name>
@@ -86,11 +86,11 @@
   </game>
   <game>
     <name>Prototype 2</name>
-    <path>%USERPROFILE%\Documents\Activision\Prototype 2</path>
+    <path>%USERPROFILE%\Documents\Activision\Prototype 2\</path>
   </game>
   <game>
     <name>Ghost of Tsushima</name>
-    <path>%userprofile%\Documents\Ghost of Tsushima DIRECTOR'S CUT</path>
+    <path>%userprofile%\Documents\Ghost of Tsushima DIRECTOR'S CUT\</path>
   </game>
   <game>
     <name>Jujutsu Kaisen</name>
@@ -98,19 +98,19 @@
   </game>
   <game>
     <name>Watch Dogs 2</name>
-    <path>%USERPROFILE%\Documents\CPY_SAVES</path>
+    <path>%USERPROFILE%\Documents\CPY_SAVES\</path>
   </game>
   <game>
     <name>Call of Duty Modern Warfare 3</name>
-    <path>C:\Program Files\Activision</path>
+    <path>C:\Program Files\Activision\</path>
   </game>
   <game>
     <name>Gerda</name>
-    <path>%USERPROFILE%\AppData\LocalLow\PortaPlay</path>
+    <path>%USERPROFILE%\AppData\LocalLow\PortaPlay\</path>
   </game>
   <game>
     <name>Hannahs Day</name>
-    <path>%USERPROFILE%/AppData/Local/HannahsDay</path>
+    <path>%USERPROFILE%/AppData/Local/HannahsDay/</path>
   </game>
   <game>
     <name>Harold Halibut</name>
@@ -118,23 +118,23 @@
   </game>
   <game>
     <name>Planet of Lana</name>
-    <path>%USERPROFILE%/AppData/LocalLow/Wishfully/Planet of Lana</path>
+    <path>%USERPROFILE%/AppData/LocalLow/Wishfully/Planet of Lana/</path>
   </game>
   <game>
     <name>World of Goo 2</name>
-    <path>%APPDATA%\Local\2DBoy\WorldOfGoo2</path>
+    <path>%APPDATA%\Local\2DBoy\WorldOfGoo2\</path>
   </game>
   <game>
     <name>The Invincible</name>
-    <path>%USERPROFILE%/AppData/Local/TheInvincible\Saved\SaveGames</path>
+    <path>%USERPROFILE%/AppData/Local/TheInvincible\Saved\SaveGames\</path>
   </game>
   <game>
-    <name>Max Payne 3 - Complete Edition</name>
-    <path>%USERPROFILE%\Documents\Rockstar Games\Max Payne 3\Profiles</path>
+    <name>Max Payne 3 - Complete Edition\</name>
+    <path>%USERPROFILE%\Documents\Rockstar Games\Max Payne 3\Profiles\</path>
   </game>
   <game>
     <name>Resident Evil 3</name>
-    <path>%userprofile%/appdata/roaming/HOODLUM</path>
+    <path>%userprofile%/appdata/roaming/HOODLUM/</path>
   </game>
   <game>
     <name>Mafia</name>
@@ -158,7 +158,7 @@
   </game>
   <game>
     <name>Plants vs Zombies</name>
-    <path>%PROGRAMDATA%\PopCap Games\PlantsVsZombies</path>
+    <path>%PROGRAMDATA%\PopCap Games\PlantsVsZombies\</path>
   </game>
   <game>
     <name>Sekiro</name>
@@ -218,23 +218,23 @@
   </game>
   <game>
     <name>NBA 2K22</name>
-    <path>%userprofile%\Documents\Steam\CODEX\1644960</path>
+    <path>%userprofile%\Documents\Steam\CODEX\1644960\</path>
   </game>
   <game>
     <name>Mortal Kombat 11</name>
-    <path>%userprofile%\AppData\Roaming\EMPRESS\976310</path>
+    <path>%userprofile%\AppData\Roaming\EMPRESS\976310\</path>
   </game>
   <game>
     <name>Devil may cry 5 fitgirl</name>
-    <path>%userprofile%\AppData\Roaming\HOODLUM</path>
+    <path>%userprofile%\AppData\Roaming\HOODLUM\</path>
   </game>
   <game>
     <name>The Witcher 3</name>
-    <path>%userprofile%\Documents\The Witcher 3</path>
+    <path>%userprofile%\Documents\The Witcher 3\</path>
   </game>
   <game>
     <name>Tomb Raider HD</name>
-    <path>C:\Users\Public\Documents\MicrosoftStore\RUNE\Tomb Raider Definitive Edition [31441469]</path>
+    <path>C:\Users\Public\Documents\MicrosoftStore\RUNE\Tomb Raider Definitive Edition [31441469]\</path>
   </game>
   <game>
     <name>The Sims 4</name>
@@ -246,11 +246,11 @@
   </game>
   <game>
     <name>Alan Wake 2</name>
-    <path>%userprofile%\AppData\Local\Remedy\AlanWake2</path>
+    <path>%userprofile%\AppData\Local\Remedy\AlanWake2\</path>
   </game>
   <game>
     <name>Warhammer 40000 - Space Marine 2</name>
-    <path>%userprofile%\AppData\Local\Saber\Space Marine 2</path>
+    <path>%userprofile%\AppData\Local\Saber\Space Marine 2\</path>
   </game>
   <game>
     <name>GTA IV</name>
