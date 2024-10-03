@@ -133,10 +133,6 @@
     <path>%USERPROFILE%\Documents\Rockstar Games\Max Payne 3\</path>
   </game>
   <game>
-    <name>Resident Evil 3</name>
-    <path>%userprofile%/appdata/roaming/HOODLUM/</path>
-  </game>
-  <game>
     <name>Mafia</name>
     <path>%USERPROFILE%\Documents\My Games\Mafia Definitive Edition\</path>
   </game>
@@ -154,7 +150,7 @@
   </game>
   <game>
     <name>Resident Evil 7</name>
-    <path>%USERPROFILE%\Documents\Steam\CODEX\418370\remote\</path>
+    <path>%USERPROFILE%\Documents\Steam\CODEX\418370\</path>
   </game>
   <game>
     <name>Plants vs Zombies</name>
