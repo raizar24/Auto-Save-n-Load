@@ -74,4 +74,135 @@ or you can do this
 
 
 
+### Path Structure Rules
+- **One-Level Deep Paths**: These paths contain a single folder immediately under the specified system folder. For example, a path like `%userprofile%\Documents\MyGame\` is considered one-level deep because "MyGame" is directly under "Documents."
+  
+- **Two-Level Deep Paths**: These paths consist of two nested folders under the specified system folder. For instance, a path like `%userprofile%\AppData\Local\MyGame\Saves\` is two-level deep, as "MyGame" is a folder under "Local" and "Saves" is a subfolder under "MyGame."
+
+Here are specific examples of each type of path:
+
+
+### 1. %appdata%
+- **Description**: Points to the Application Data folder for the current user.
+
+  - **One Level Deep**:
+    ```xml
+    <game>
+      <name>Red Dead Redemption 2</name>
+      <path>%appdata%\.1911\</path>
+    </game>
+    ```
+    - **Save Folder**: `\.1911\` (One level deep)
+
+  - **Two Levels Deep**:
+    ```xml
+    <game>
+      <name>Red Dead Redemption 2</name>
+      <path>%appdata%\.1911\Red Dead Redemption 2\</path>
+    </game>
+    ```
+    - **Save Folder**: `\.1911\Red Dead Redemption 2\` (Two levels deep)
+
+### 2. %userprofile%
+- **Description**: Points to the user’s profile directory.
+
+  - **One Level Deep**:
+    ```xml
+    <game>
+      <name>The Sims 4</name>
+      <path>%userprofile%\Documents\Electronic Arts\</path>
+    </game>
+    ```
+    - **Save Folder**: `\Documents\Electronic Arts\` (One level deep)
+
+  - **Two Levels Deep**:
+    ```xml
+    <game>
+      <name>Warhammer 40000 - Space Marine 2</name>
+      <path>%userprofile%\AppData\Local\Saber\Space Marine 2\</path>
+    </game>
+    ```
+    - **Save Folder**: `\AppData\Local\Saber\Space Marine 2\` (Two levels deep)
+
+  - Additional Examples:
+    ```xml
+    <game>
+      <name>Amedama</name>
+      <path>%USERPROFILE%/AppData/LocalLow/Izanagigames/</path>
+    </game>
+    <game>
+      <name>NBA 2K22</name>
+      <path>%userprofile%\Documents\Steam\CODEX\1644960</path>
+    </game>
+    <game>
+      <name>Mortal Kombat 11</name>
+      <path>%userprofile%\AppData\Roaming\EMPRESS\976310</path>
+    </game>
+    <game>
+      <name>Devil May Cry 5 Fitgirl</name>
+      <path>%userprofile%\AppData\Roaming\HOODLUM</path>
+    </game>
+    <game>
+      <name>The Witcher 3</name>
+      <path>%userprofile%\Documents\The Witcher 3</path>
+    </game>
+    <game>
+      <name>Last of Us Part 1</name>
+      <path>%userprofile%\Saved Games\The Last of Us Part I\</path>
+    </game>
+    <game>
+      <name>Alan Wake 2</name>
+      <path>%userprofile%\AppData\Local\Remedy\AlanWake2</path>
+    </game>
+    <game>
+      <name>GTA IV</name>
+      <path>%userprofile%\AppData\Roaming\Goldberg SocialClub Emu Saves\GTA IV\</path>
+    </game>
+    ```
+
+### 3. %localappdata%
+- **Description**: Points to the Local Application Data folder for the current user.
+
+  - **One Level Deep**:
+    ```xml
+    <game>
+      <name>MyGame</name>
+      <path>%localappdata%\MyGame\</path>
+    </game>
+    ```
+    - **Save Folder**: `\MyGame\` (One level deep)
+
+  - **Two Levels Deep**:
+    ```xml
+    <game>
+      <name>MyGame</name>
+      <path>%localappdata%\MyGame\Saves\</path>
+    </game>
+    ```
+    - **Save Folder**: `\MyGame\Saves\` (Two levels deep)
+
+### 4. %programdata%
+- **Description**: Points to the Program Data folder, which is accessible to all users.
+
+  - **One Level Deep**:
+    ```xml
+    <game>
+      <name>MyApp</name>
+      <path>%programdata%\MyApp\</path>
+    </game>
+    ```
+    - **Save Folder**: `\MyApp\` (One level deep)
+
+  - **Two Levels Deep**:
+    ```xml
+    <game>
+      <name>MyApp</name>
+      <path>%programdata%\MyApp\Data\</path>
+    </game>
+    ```
+    - **Save Folder**: `\MyApp\Data\` (Two levels deep)
+
+
+
+
 
