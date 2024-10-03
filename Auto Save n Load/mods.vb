@@ -35,6 +35,7 @@ Module mods
                 Dim pathNode As XmlNode = gameNode.SelectSingleNode("path")
                 Dim gameName As String = CleanStringForPath(nameNode.InnerText)
                 Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
+                sourcePath = EnsureTrailingSlash(sourcePath)
                 Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(sourcePath))
                 Dim targetPath As String = IO.Path.Combine(destinationFolder, gameName, folderName)
 
@@ -110,6 +111,7 @@ Module mods
 
         For Each pathNode As XmlNode In pathNodes
             Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
+            sourcePath = EnsureTrailingSlash(sourcePath)
             If Directory.Exists(sourcePath) Then
                 Directory.Delete(sourcePath, True)
             End If
@@ -202,7 +204,15 @@ Module mods
         End Try
     End Function
 
-
+    Function EnsureTrailingSlash(directory As String) As String
+        If Not String.IsNullOrEmpty(directory) Then
+            Dim separator As Char = If(directory.Contains("/"), "/"c, "\"c)
+            If Not directory.EndsWith(separator) Then
+                directory &= separator
+            End If
+        End If
+        Return directory
+    End Function
 
 
 
