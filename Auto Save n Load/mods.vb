@@ -22,7 +22,6 @@ Module mods
     Sub CreateSymbolicLinks(ByVal xmlFile As String, ByVal destinationFolder As String)
         Dim logFile As String = "symbolic_links_log.txt"
         Dim logBuilder As New StringBuilder()
-
         Try
             logBuilder.AppendLine($"{DateTime.Now}: Starting the process for XML file '{xmlFile}' and destination folder '{destinationFolder}'")
             Dim xmlDoc As New XmlDocument()
@@ -30,29 +29,30 @@ Module mods
 
             Dim gameNodes As XmlNodeList = xmlDoc.SelectNodes("//game")
             Parallel.ForEach(
-                gameNodes.Cast(Of XmlNode),
-                Sub(gameNode)
-                    Dim nameNode As String = CleanStringForPath(gameNode.SelectSingleNode("name").InnerText)
-                    Dim pathNode As String = ContainsSpecialCommand(gameNode.SelectSingleNode("path").InnerText)
-                    pathNode = EnsureTrailingSlash(pathNode)
-                    Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(pathNode))
-                    Dim targetPath As String = IO.Path.Combine(destinationFolder, nameNode, folderName)
+            gameNodes.Cast(Of XmlNode),
+            Sub(gameNode)
+                Dim nameNode As String = CleanStringForPath(gameNode.SelectSingleNode("name").InnerText)
+                Dim pathNode As String = ContainsSpecialCommand(gameNode.SelectSingleNode("path").InnerText)
+                pathNode = EnsureTrailingSlash(pathNode)
+                Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(pathNode))
+                Dim targetPath As String = IO.Path.Combine(destinationFolder, nameNode, folderName)
+                targetPath = EnsureTrailingSlash(targetPath)
+                logBuilder.AppendLine($"{DateTime.Now}: Processing game '{nameNode}' with source path '{pathNode}'")
 
-                    logBuilder.AppendLine($"{DateTime.Now}: Processing game '{nameNode}' with source path '{pathNode}'")
+                If Not Directory.Exists(targetPath) Then
+                    Directory.CreateDirectory(targetPath)
+                    logBuilder.AppendLine($"{DateTime.Now}: Created directory '{targetPath}'")
+                End If
 
-                    If Not Directory.Exists(targetPath) Then
-                        Directory.CreateDirectory(targetPath)
-                        logBuilder.AppendLine($"{DateTime.Now}: Created directory '{targetPath}'")
-                    End If
+                Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(pathNode))
 
-                    Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(pathNode))
+                If Not Directory.Exists(sourceParentDirectory) Then
+                    Directory.CreateDirectory(sourceParentDirectory)
+                    logBuilder.AppendLine($"{DateTime.Now}: Created directory '{sourceParentDirectory}'")
+                End If
 
-                    If Not Directory.Exists(sourceParentDirectory) Then
-                        Directory.CreateDirectory(sourceParentDirectory)
-                        logBuilder.AppendLine($"{DateTime.Now}: Created directory '{sourceParentDirectory}'")
-                    End If
-                    doSymbolicLink(pathNode, targetPath)
-                End Sub)
+                doSymbolicLink(pathNode, targetPath, logBuilder)
+            End Sub)
 
             logBuilder.AppendLine($"{DateTime.Now}: Successfully completed creating symbolic links for all games.")
         Catch ex As Exception
@@ -62,9 +62,7 @@ Module mods
         End Try
     End Sub
 
-    Private Sub doSymbolicLink(ByVal sourcePath As String, ByVal targetPath As String)
-        Dim logFile As String = "logfile.txt"
-        Dim logBuilder As New StringBuilder()
+    Private Sub doSymbolicLink(ByVal sourcePath As String, ByVal targetPath As String, ByRef logBuilder As StringBuilder) ' Accept logBuilder by reference
         Dim command As String = "/C mklink /D """ & sourcePath & """ """ & targetPath & """"
         Try
             logBuilder.AppendLine($"{DateTime.Now}: Creating symbolic link from {sourcePath} to {targetPath}")
@@ -75,23 +73,29 @@ Module mods
                 .Arguments = command
                 .WindowStyle = ProcessWindowStyle.Hidden
                 .CreateNoWindow = True
+                .RedirectStandardOutput = True
+                .RedirectStandardError = True
+                .UseShellExecute = False
             End With
 
             process.Start()
             process.WaitForExit()
 
+            Dim output As String = process.StandardOutput.ReadToEnd()
+            Dim errorOutput As String = process.StandardError.ReadToEnd()
+
+
             If process.ExitCode = 0 Then
                 logBuilder.AppendLine($"{DateTime.Now}: Symbolic link created successfully.")
             Else
-                logBuilder.AppendLine($"{DateTime.Now}: Failed to create symbolic link. Exit code: {process.ExitCode}")
+                logBuilder.AppendLine($"{DateTime.Now}: Failed to create symbolic link. Source: {sourcePath} to {targetPath} Exit code: {process.ExitCode}. Error: {errorOutput}")
             End If
 
         Catch ex As Exception
             logBuilder.AppendLine($"{DateTime.Now}: Error creating symbolic link: {ex.Message}")
-        Finally
-            File.AppendAllText(logFile, logBuilder.ToString())
         End Try
     End Sub
+
 
     Sub RemoveSymbolicLinks(ByVal xmlFile As String)
         Dim xmlDoc As New XmlDocument()
