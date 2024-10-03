@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Xml
 
@@ -20,66 +21,53 @@ Module mods
 
     Sub CreateSymbolicLinks(ByVal xmlFile As String, ByVal destinationFolder As String)
         Dim logFile As String = "symbolic_links_log.txt"
-        Try
-            Using writer As StreamWriter = New StreamWriter(logFile, True)
-                writer.WriteLine($"{DateTime.Now}: Starting the process for XML file '{xmlFile}' and destination folder '{destinationFolder}'")
-            End Using
+        Dim logBuilder As New StringBuilder()
 
+        Try
+            logBuilder.AppendLine($"{DateTime.Now}: Starting the process for XML file '{xmlFile}' and destination folder '{destinationFolder}'")
             Dim xmlDoc As New XmlDocument()
             xmlDoc.Load(xmlFile)
 
             Dim gameNodes As XmlNodeList = xmlDoc.SelectNodes("//game")
+            Parallel.ForEach(
+                gameNodes.Cast(Of XmlNode),
+                Sub(gameNode)
+                    Dim nameNode As String = CleanStringForPath(gameNode.SelectSingleNode("name").InnerText)
+                    Dim pathNode As String = ContainsSpecialCommand(gameNode.SelectSingleNode("path").InnerText)
+                    pathNode = EnsureTrailingSlash(pathNode)
+                    Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(pathNode))
+                    Dim targetPath As String = IO.Path.Combine(destinationFolder, nameNode, folderName)
 
-            For Each gameNode As XmlNode In gameNodes
-                Dim nameNode As XmlNode = gameNode.SelectSingleNode("name")
-                Dim pathNode As XmlNode = gameNode.SelectSingleNode("path")
-                Dim gameName As String = CleanStringForPath(nameNode.InnerText)
-                Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
-                sourcePath = EnsureTrailingSlash(sourcePath)
-                Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(sourcePath))
-                Dim targetPath As String = IO.Path.Combine(destinationFolder, gameName, folderName)
+                    logBuilder.AppendLine($"{DateTime.Now}: Processing game '{nameNode}' with source path '{pathNode}'")
 
-                Using writer As StreamWriter = New StreamWriter(logFile, True)
-                    writer.WriteLine($"{DateTime.Now}: Processing game '{gameName}' with source path '{sourcePath}'")
-                End Using
+                    If Not Directory.Exists(targetPath) Then
+                        Directory.CreateDirectory(targetPath)
+                        logBuilder.AppendLine($"{DateTime.Now}: Created directory '{targetPath}'")
+                    End If
 
-                If Not Directory.Exists(targetPath) Then
-                    Directory.CreateDirectory(targetPath)
-                    Using writer As StreamWriter = New StreamWriter(logFile, True)
-                        writer.WriteLine($"{DateTime.Now}: Created directory '{targetPath}'")
-                    End Using
-                End If
+                    Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(pathNode))
 
-                Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(sourcePath))
-                Dim sourceParentDirectory2 As String = IO.Path.GetDirectoryName(sourcePath)
+                    If Not Directory.Exists(sourceParentDirectory) Then
+                        Directory.CreateDirectory(sourceParentDirectory)
+                        logBuilder.AppendLine($"{DateTime.Now}: Created directory '{sourceParentDirectory}'")
+                    End If
+                    doSymbolicLink(pathNode, targetPath)
+                End Sub)
 
-                If Not Directory.Exists(sourceParentDirectory) Then
-                    Directory.CreateDirectory(sourceParentDirectory)
-                    Using writer As StreamWriter = New StreamWriter(logFile, True)
-                        writer.WriteLine($"{DateTime.Now}: Created directory '{sourceParentDirectory}'")
-                    End Using
-                End If
-                doSymbolicLink(sourcePath, targetPath)
-            Next
-
-            Using writer As StreamWriter = New StreamWriter(logFile, True)
-                writer.WriteLine($"{DateTime.Now}: Successfully completed creating symbolic links for all games.")
-            End Using
-
+            logBuilder.AppendLine($"{DateTime.Now}: Successfully completed creating symbolic links for all games.")
         Catch ex As Exception
-            Using writer As StreamWriter = New StreamWriter(logFile, True)
-                writer.WriteLine($"{DateTime.Now}: Error occurred: {ex.Message}")
-            End Using
+            logBuilder.AppendLine($"{DateTime.Now}: Error occurred: {ex.Message}")
+        Finally
+            File.AppendAllText(logFile, logBuilder.ToString())
         End Try
     End Sub
+
     Private Sub doSymbolicLink(ByVal sourcePath As String, ByVal targetPath As String)
         Dim logFile As String = "logfile.txt"
+        Dim logBuilder As New StringBuilder()
         Dim command As String = "/C mklink /D """ & sourcePath & """ """ & targetPath & """"
-
         Try
-            Using writer As StreamWriter = New StreamWriter(logFile, True)
-                writer.WriteLine($"{DateTime.Now}: Creating symbolic link from {sourcePath} to {targetPath}")
-            End Using
+            logBuilder.AppendLine($"{DateTime.Now}: Creating symbolic link from {sourcePath} to {targetPath}")
 
             Dim process As New Process()
             With process.StartInfo
@@ -92,30 +80,33 @@ Module mods
             process.Start()
             process.WaitForExit()
 
-            Using writer As StreamWriter = New StreamWriter(logFile, True)
-                writer.WriteLine($"{DateTime.Now}: Symbolic link created successfully.")
-            End Using
+            If process.ExitCode = 0 Then
+                logBuilder.AppendLine($"{DateTime.Now}: Symbolic link created successfully.")
+            Else
+                logBuilder.AppendLine($"{DateTime.Now}: Failed to create symbolic link. Exit code: {process.ExitCode}")
+            End If
 
         Catch ex As Exception
-            Using writer As StreamWriter = New StreamWriter(logFile, True)
-                writer.WriteLine($"{DateTime.Now}: Error creating symbolic link: {ex.Message}")
-            End Using
+            logBuilder.AppendLine($"{DateTime.Now}: Error creating symbolic link: {ex.Message}")
+        Finally
+            File.AppendAllText(logFile, logBuilder.ToString())
         End Try
     End Sub
 
     Sub RemoveSymbolicLinks(ByVal xmlFile As String)
         Dim xmlDoc As New XmlDocument()
         xmlDoc.Load(xmlFile)
-
         Dim pathNodes As XmlNodeList = xmlDoc.SelectNodes("//path")
 
-        For Each pathNode As XmlNode In pathNodes
-            Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
-            sourcePath = EnsureTrailingSlash(sourcePath)
-            If Directory.Exists(sourcePath) Then
-                Directory.Delete(sourcePath, True)
-            End If
-        Next
+        Parallel.ForEach(
+            pathNodes.Cast(Of XmlNode),
+            Sub(pathNode)
+                Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
+                sourcePath = EnsureTrailingSlash(sourcePath)
+                If Directory.Exists(sourcePath) Then
+                    Directory.Delete(sourcePath, True)
+                End If
+            End Sub)
     End Sub
 
     Function loadXML(ByVal value As String)
