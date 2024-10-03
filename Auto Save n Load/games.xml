@@ -50,11 +50,11 @@
   </game>
   <game>
     <name>RimWorld</name>
-    <path>%userprofile%\appdata\lowlocal\Ludeon Studios\</path>
+    <path>%userprofile%\appdata\LocalLow\Ludeon Studios\</path>
   </game>
   <game>
     <name>Selfloss</name>
-    <path>%userprofile%\appdata\lowlocal\Squid Shock Studios\Bo</path>
+    <path>%USERPROFILE%\AppData\LocalLow\Squid Shock Studios\Bo</path>
   </game>
   <game>
     <name>Spiderman Remastered</name>
@@ -74,7 +74,7 @@
   </game>
   <game>
     <name>Thanks Goodness Youre Here</name>
-    <path>%USERPROFILE%\AppData\LocalLow\Coal Supper\Thank Goodness You're Here!\saves</path>
+    <path>%USERPROFILE%\AppData\LocalLow\Coal Supper\Thank Goodness You're Here!\</path>
   </game>
   <game>
     <name>Thought Experiment Simulator</name>
