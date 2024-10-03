@@ -266,7 +266,7 @@
   </game>
   <game>
     <name>Dead Island Riptide - Definitive Edition</name>
-    <path>C:\Users\Roy\AppData\Roaming\Steam\CODEX\383180\</path>
+    <path>%userprofile%\AppData\Roaming\Steam\CODEX\383180\</path>
   </game>
   <game>
     <name>Sniper Ghost Warrior Contracts 2</name>
