@@ -126,11 +126,11 @@
   </game>
   <game>
     <name>The Invincible</name>
-    <path>%USERPROFILE%/AppData/Local/TheInvincible\Saved\SaveGames\</path>
+    <path>%USERPROFILE%/AppData/Local/TheInvincible/</path>
   </game>
   <game>
-    <name>Max Payne 3 - Complete Edition\</name>
-    <path>%USERPROFILE%\Documents\Rockstar Games\Max Payne 3\Profiles\</path>
+    <name>Max Payne 3 - Complete Edition</name>
+    <path>%USERPROFILE%\Documents\Rockstar Games\Max Payne 3\</path>
   </game>
   <game>
     <name>Resident Evil 3</name>
