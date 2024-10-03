@@ -59,8 +59,7 @@ or you can do this
 - Execute the application.
 - Ensure administrative privileges are granted to allow symbolic link creation.
 
-#### Setting default Password: 123123
-
+---
 ### Client-Side Setup Instructions
 
 #### 1. Create a Shortcut
@@ -72,9 +71,11 @@ or you can do this
 - Type `shell:startup` and press Enter.
 - Copy the shortcut you created in the previous step and paste it into the Startup folder.
 
+---
 
 
-### Path Structure Rules
+#### Setting default Password: 123123
+### Path Structure Rules for adding game's save directories
 - **%appdata%**: `C:\Users\<Username>\AppData\Roaming`
 - **%userprofile%**: `C:\Users\<Username>`
 - **%localappdata%**: `C:\Users\<Username>\AppData\Local`
