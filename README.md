@@ -14,7 +14,6 @@ Computer rentals are typically configured with Deep Freeze to prevent any instal
 ## Installation and Setup
 
 ### Prerequisites
-- .NET 6 (https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 - Windows OS
 - Administrative privileges (required for symbolic link creation)
 
