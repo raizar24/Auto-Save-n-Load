@@ -288,4 +288,84 @@
     <name>Minecraft Dungeon Save Location 2</name>
     <path>%userprofile%\AppData\Local\Dungeons\</path>
   </game>
+    <game>
+    <name>Resident Evil 3</name>
+    <path>C:\Users\Public\Documents\Steam\CODEX\952060\</path>
+  </game>
+  <game>
+    <name>The Sims 3</name>
+    <path>%userprofile%\Documents\Electronic Arts\The Sims 3\</path>
+  </game>
+  <game>
+    <name>Horizon Zero Dawn 2nd save location</name>
+    <path>C:\Users\Public\Documents\Steam\CODEX\1151640\</path>
+  </game>
+  <game>
+    <name>Minecraft Story Mode</name>
+    <path>%USERPROFILE%\Documents\Telltale Games\Minecraft Story Mode\</path>
+  </game>
+  <game>
+    <name>Little Nightmares II</name>
+    <path>%LOCALAPPDATA%\Helios\Saved\</path>
+  </game>
+  <game>
+    <name>Overcooked</name>
+    <path>%USERPROFILE%\AppData\LocalLow\Ghost Town Games\Overcooked\</path>
+  </game>
+  <game>
+    <name>Overcooked All You Can Eat</name>
+    <path>%USERPROFILE%\AppData\LocalLow\Team17\Overcooked All You Can Eat\</path>
+  </game>
+  <game>
+    <name>Overcooked 2</name>
+    <path>%USERPROFILE%\AppData\LocalLow\Team17\Overcooked2\</path>
+  </game>
+  <game>
+    <name>SpongeBob SquarePants BfBBR</name>
+    <path>%LOCALAPPDATA%\Pineapple\Saved\</path>
+  </game>
+  <game>
+    <name>SBSP The Cosmic Shake</name>
+    <path>%LOCALAPPDATA%\CosmicShake\Saved\</path>
+  </game>
+  <game>
+    <name>Disney Epic Mickey - Rebrushed</name>
+    <path>%LOCALAPPDATA%\recolored\Saved\</path>
+  </game>
+  <game>
+    <name>The Plucky Squire</name>
+    <path>%LOCALAPPDATA%\Storybook\Saved\</path>
+  </game>
+  <game>
+    <name>SteamWorld Heist II</name>
+    <path>%APPDATA%\Thunderful\SteamWorld Heist II\</path>
+  </game>
+  <game>
+    <name>Children of the Sun</name>
+    <path>%USERPROFILE%\AppData\LocalLow\primaerfunktion\ChildrenOfTheSun\</path>
+  </game>
+  <game>
+    <name>Pepper Grinder</name>
+    <path>%USERPROFILE%/AppData/Roaming/PepperGrinder/</path>
+  </game>
+  <game>
+    <name>Sons of the forest</name>
+    <path>%USERPROFILE%\AppData\LocalLow\Endnight\SonsOfTheForest\</path>
+  </game>
+  <game>
+    <name>Tekken 8</name>
+    <path>%LOCALAPPDATA%\TEKKEN 8\Saved\</path>
+  </game>
+  <game>
+    <name>Guilty Gear Stride</name>
+    <path>%LOCALAPPDATA%\GGST\Saved\</path>
+  </game>
+  <game>
+    <name>Spongebob Squarepants The Patrick Star Game</name>
+    <path>%userprofile%\AppData\LocalLow\PHL</path>
+  </game>
+  <game>
+    <name>Silent Hill 2</name>
+    <path>%LOCALAPPDATA%\SilentHill2\Saved\</path>
+  </game>
 </games>
