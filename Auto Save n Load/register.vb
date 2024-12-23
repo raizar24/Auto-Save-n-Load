@@ -53,4 +53,33 @@ Public Class register
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If txtpass.UseSystemPasswordChar = True Then
+            txtpass.UseSystemPasswordChar = False
+            Button1.BackgroundImage = My.Resources.eye2
+
+        Else
+            txtpass.UseSystemPasswordChar = True
+            Button1.BackgroundImage = My.Resources.eyepink
+        End If
+    End Sub
+
+
+
+    Private Sub register_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        txtpass.UseSystemPasswordChar = True
+        txtpass2.UseSystemPasswordChar = True
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        If txtpass2.UseSystemPasswordChar = True Then
+            txtpass2.UseSystemPasswordChar = False
+            Button2.BackgroundImage = My.Resources.eye2
+
+        Else
+            txtpass2.UseSystemPasswordChar = True
+            Button2.BackgroundImage = My.Resources.eyepink
+        End If
+    End Sub
 End Class

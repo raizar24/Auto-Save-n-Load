@@ -1,5 +1,8 @@
 ﻿Imports System.Net.Http
 Imports System.Xml
+Imports System.IO
+Imports System.IO.Compression
+Imports System.Windows
 
 Public Class settings
     Dim SaveMode As String
@@ -14,6 +17,9 @@ Public Class settings
     Private Sub settings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ListBox2.Items.AddRange(loadList(Form1.userXML, "user", "username").ToArray())
         ListBox1.Items.AddRange(loadList(Form1.gamesXML, "game", "name").ToArray())
+        txtOldPass.UseSystemPasswordChar = True
+        txtNewpass.UseSystemPasswordChar = True
+        txtCnewpass.UseSystemPasswordChar = True
     End Sub
 
     Sub reset()
@@ -271,13 +277,36 @@ Public Class settings
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim doc As XDocument = XDocument.Load(Form1.adminXML)
-        Dim password = Encrypt(NewAdminPassword.Text.Trim())
-        doc.<passwordHash>.Value = password
-        doc.Save(Form1.adminXML)
-        MessageBox.Show("Admin Password Change Successful", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        NewAdminPassword.Clear()
-        Me.Close()
+
+
+        'Validate inputs
+        If String.IsNullOrWhiteSpace(txtOldPass.Text) Or
+                String.IsNullOrWhiteSpace(txtCnewpass.Text) Or
+                String.IsNullOrWhiteSpace(txtNewpass.Text) Then
+
+            MessageBox.Show("All fields are required", "System Information")
+            Exit Sub
+
+        ElseIf txtNewpass.Text.Length < 6 Then
+            MessageBox.Show("Password length must be greater than 6 characters", "System Information")
+            Exit Sub
+
+        ElseIf txtCnewpass.Text <> txtNewpass.Text Then
+            MessageBox.Show("Passwords do not match", "System Information")
+            Exit Sub
+
+        ElseIf Encrypt(txtOldPass.Text) = Form1.adminXML Then
+            MessageBox.Show("Old password does not match", "System Information")
+            Exit Sub
+        Else
+            Dim doc = XDocument.Load(Form1.adminXML)
+            Dim password = Encrypt(txtNewpass.Text.Trim)
+            doc.<passwordHash>.Value = password
+            doc.Save(Form1.adminXML)
+            MessageBox.Show("Admin Password Change Successful", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            txtNewpass.Clear()
+            Close()
+        End If
     End Sub
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
@@ -350,8 +379,56 @@ Public Class settings
         If result = DialogResult.Yes Then
             updateXML()
             ListBox1.Items.Clear()
-            ListBox1.Items.AddRange(loadList(Form1.gamesXML, "game", "name").ToArray())
+            ListBox1.Items.AddRange(loadList(Form1.gamesXML, "game", "name").ToArray)
             MessageBox.Show("Game List updated", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Try
+            ' Define the source file path
+            Dim sourceFile As String = "\\LUMETRI-SERVER\SaveGame\games.xml"
+
+            ' Check if the source file exists
+            If Not File.Exists(sourceFile) Then
+                MessageBox.Show("The file 'games.xml' does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+
+            ' Define the backup folder and create it if it doesn't exist
+            Dim backupFolder As String = "\\LUMETRI-SERVER\Backup"
+            If Not Directory.Exists(backupFolder) Then
+                Directory.CreateDirectory(backupFolder)
+            End If
+
+            ' Generate a unique zip file name with timestamp
+            Dim timestamp As String = DateTime.Now.ToString("yyyyMMdd_HHmmss")
+            Dim zipFilePath As String = Path.Combine(backupFolder, $"games_backup_{timestamp}.zip")
+
+            ' Create a zip archive and add the file
+            Using zip As ZipArchive = ZipFile.Open(zipFilePath, ZipArchiveMode.Create)
+                zip.CreateEntryFromFile(sourceFile, "games.xml")
+            End Using
+
+            ' Notify the user of success
+            MessageBox.Show($"Backup created successfully: {zipFilePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Catch ex As Exception
+            ' Handle any errors that occur
+            MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        If CheckBox1.Checked = False Then
+
+            txtOldPass.UseSystemPasswordChar = True
+            txtNewpass.UseSystemPasswordChar = True
+            txtCnewpass.UseSystemPasswordChar = True
+        Else
+            txtOldPass.UseSystemPasswordChar = False
+            txtNewpass.UseSystemPasswordChar = False
+            txtCnewpass.UseSystemPasswordChar = False
+        End If
+
     End Sub
 End Class

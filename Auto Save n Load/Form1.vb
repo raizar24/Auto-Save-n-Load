@@ -22,7 +22,10 @@ Public Class Form1
     Private Const SW_RESTORE As Integer = 9
     Private Const SW_NORMAL As Integer = 1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Progress.Hide()
+        txtPassword.UseSystemPasswordChar = True
+        Me.StartPosition = FormStartPosition.CenterScreen
+        btnlogout.Hide()
         Dim currentProcess As Process = Process.GetCurrentProcess()
         Dim runningProcesses As Process() = Process.GetProcessesByName(currentProcess.ProcessName)
 
@@ -41,10 +44,7 @@ Public Class Form1
             End If
         Next
 
-        Me.StartPosition = FormStartPosition.Manual
-        Dim xValue = Screen.PrimaryScreen.Bounds.Width - 300
-        Dim yValue = Screen.PrimaryScreen.Bounds.Height - 500
-        Me.Location = New Point(xValue, yValue)
+
 
         Try
             If Not CheckServerAvailability() Then
@@ -77,7 +77,7 @@ Public Class Form1
         If Not CheckServerAvailability() Then
             Exit Sub
         End If
-
+        Button1.Hide()
         Dim myUserName As String = txtUserName.Text.Trim()
         Dim passwordHash As String = Encrypt(txtPassword.Text)
 
@@ -94,6 +94,16 @@ Public Class Form1
             MessageBox.Show("Login Successful", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
             txtPassword.Text = String.Empty
             txtUserName.Text = String.Empty
+
+            btnLogin.Hide()
+            btnRegister.Hide()
+            btnlogout.Show()
+            txtPassword.Hide()
+            txtUserName.Hide()
+            Label1.Hide()
+            Label2.Hide()
+            Progress.Show()
+
         Else
             MessageBox.Show("Username or Password is incorrect", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
@@ -104,6 +114,14 @@ Public Class Form1
         If result = DialogResult.Yes Then
             ResetToDefaultUser()
             DeleteSession()
+            btnLogin.Show()
+            btnRegister.Show()
+            Progress.Hide()
+            btnlogout.Hide()
+            txtPassword.Show()
+            txtUserName.Show()
+            Label1.Show()
+            Label2.Show()
         End If
     End Sub
 
@@ -191,9 +209,9 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenToolStripMenuItem.Click
-        Me.Show()
-        Me.WindowState = FormWindowState.Normal
+    Private Sub OpenToolStripMenuItem_Click(sender As Object, e As EventArgs)
+        Show()
+        WindowState = FormWindowState.Normal
     End Sub
 
     Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
@@ -201,8 +219,29 @@ Public Class Form1
         Me.WindowState = FormWindowState.Normal
     End Sub
 
-    Private Sub QuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles QuitToolStripMenuItem.Click
+    Private Sub QuitToolStripMenuItem_Click(sender As Object, e As EventArgs)
         NotifyIcon1.Visible = False
         Application.Exit()
     End Sub
+
+    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
+
+    End Sub
+
+    Private Sub lblCurrentUser_Click(sender As Object, e As EventArgs) Handles lblCurrentUser.Click
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If txtPassword.UseSystemPasswordChar = True Then
+            txtPassword.UseSystemPasswordChar = False
+            Button1.BackgroundImage = My.Resources.eye2
+
+        Else
+            txtPassword.UseSystemPasswordChar = True
+            Button1.BackgroundImage = My.Resources.eyepink
+        End If
+    End Sub
+
+
 End Class
