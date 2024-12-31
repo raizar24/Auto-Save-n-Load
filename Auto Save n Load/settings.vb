@@ -1,22 +1,20 @@
 ﻿Imports System.Net.Http
 Imports System.Xml
 
-Public Class settings
-    Dim SaveMode As String
-    Dim SaveMode2 As String
+Public Class Settings
+    Private SaveMode As String
+    Private SaveMode2 As String
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
-        open()
+        OpenGameFields()
         SaveMode = "add"
-        txtgame.Enabled = True
-        txtSavepath.Enabled = True
     End Sub
 
-    Private Sub settings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Settings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ListBox2.Items.AddRange(loadList(Form1.userXML, "user", "username").ToArray())
         ListBox1.Items.AddRange(loadList(Form1.gamesXML, "game", "name").ToArray())
     End Sub
 
-    Sub reset()
+    Private Sub ResetGameFields()
         txtgame.Enabled = False
         txtSavepath.Enabled = False
         btnAdd.Enabled = True
@@ -30,7 +28,7 @@ Public Class settings
         ListBox1.Items.AddRange(loadList(Form1.gamesXML, "game", "name").ToArray())
     End Sub
 
-    Sub reset2()
+    Private Sub ResetUserFields()
         txtUser.Enabled = False
         txtPass.Enabled = False
         btnadd2.Enabled = True
@@ -44,7 +42,7 @@ Public Class settings
         ListBox2.Items.AddRange(loadList(Form1.userXML, "user", "username").ToArray())
     End Sub
 
-    Sub open()
+    Private Sub OpenGameFields()
         txtgame.Text = ""
         txtSavepath.Text = ""
         btnAdd.Enabled = False
@@ -53,9 +51,11 @@ Public Class settings
         ListBox1.Enabled = False
         btnSave.Enabled = True
         btnCancel.Enabled = True
+        txtgame.Enabled = True
+        txtSavepath.Enabled = True
     End Sub
 
-    Sub open2()
+    Private Sub OpenUserFields()
         txtUser.Text = ""
         txtPass.Text = ""
         btnadd2.Enabled = False
@@ -64,10 +64,12 @@ Public Class settings
         ListBox2.Enabled = False
         btnsave2.Enabled = True
         btncancel2.Enabled = True
+        txtUser.Enabled = True
+        txtPass.Enabled = True
     End Sub
 
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
-        open()
+        OpenGameFields()
         ListBox1.Enabled = True
         txtgame.Enabled = False
         txtSavepath.Enabled = True
@@ -75,134 +77,102 @@ Public Class settings
     End Sub
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
-        open()
+        OpenGameFields()
         ListBox1.Enabled = True
         txtgame.Enabled = False
         txtSavepath.Enabled = False
         SaveMode = "delete"
     End Sub
 
-    Function add(name As String, path As String, xml As String, parent As String, child As String, child2 As String, encryption As Boolean) As Boolean
-        Dim doc As XmlDocument = New XmlDocument()
+    Private Function AddGame(name As String, path As String, xml As String, parent As String, child As String, child2 As String, encryption As Boolean) As Boolean
+        Dim doc As New XmlDocument()
         doc.Load(xml)
-        Dim existing As XmlElement
         If name.Contains("'") Then
             MessageBox.Show("Game Name must not contain single quotation mark", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
         End If
-        existing = doc.SelectSingleNode("//" & parent & "/" & child & "[text() = '" & name & "']")
-        If existing IsNot Nothing Then
-            MessageBox.Show("Item '" & name & "' already exists.", "System Information")
+        Dim xpathExpression As String = $"//{parent}/{child}[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = '{name.ToLower()}']"
+        Dim existingNode As XmlNode = doc.SelectSingleNode(xpathExpression)
+
+        If existingNode IsNot Nothing Then
+            MessageBox.Show($"Item '{name}' already exists.", "System Information")
             Return False
         End If
 
         Dim newElement As XmlElement = doc.CreateElement(parent)
+        Dim elementName As XmlElement = doc.CreateElement(child)
+        elementName.InnerText = name
+        Dim elementPath As XmlElement = doc.CreateElement(child2)
+        If encryption Then path = Encrypt(path)
+        elementPath.InnerText = path
 
-        Dim Element As XmlElement = doc.CreateElement(child)
-        Element.InnerText = name
-        Dim Element2nd As XmlElement = doc.CreateElement(child2)
-        If encryption Then
-            path = Encrypt(path)
-        End If
-        Element2nd.InnerText = path
-
-        newElement.AppendChild(Element)
-        newElement.AppendChild(Element2nd)
-
+        newElement.AppendChild(elementName)
+        newElement.AppendChild(elementPath)
         doc.DocumentElement.AppendChild(newElement)
         doc.Save(xml)
         Return True
     End Function
 
-    Sub delete(gameName As String, newPath As String, filePath As String, parent As String, child As String)
-
+    Private Sub DeleteGame(gameName As String, filePath As String, parent As String, child As String)
         Dim doc As XDocument = XDocument.Load(filePath)
-        Dim gameNode = doc.Descendants(parent).Where(Function(g) g.Element(child).Value = gameName).FirstOrDefault()
-
-        gameNode.Remove()
-
+        Dim gameNode = doc.Descendants(parent).FirstOrDefault(Function(g) g.Element(child)?.Value = gameName)
+        gameNode?.Remove()
         doc.Save(filePath)
-
     End Sub
 
-    Sub edit(gameName As String, newPath As String, filePath As String, parent As String, child As String, child2 As String, encryption As Boolean)
+    Private Sub EditGame(gameName As String, newPath As String, filePath As String, parent As String, child As String, child2 As String, encryption As Boolean)
         Dim doc As XDocument = XDocument.Load(filePath)
-
-        Dim gameNode = doc.Descendants(parent).Where(Function(g) g.Element(child).Value = gameName).FirstOrDefault()
-        If encryption Then
-            newPath = Encrypt(newPath)
-        End If
-        gameNode.Element(child2).Value = newPath
-
+        Dim gameNode = doc.Descendants(parent).FirstOrDefault(Function(g) g.Element(child)?.Value = gameName)
+        If encryption Then newPath = Encrypt(newPath)
+        If gameNode IsNot Nothing Then gameNode.Element(child2).Value = newPath
         doc.Save(filePath)
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        Dim result As DialogResult
-        Dim name = txtgame.Text.Trim
-        Dim path = txtSavepath.Text.Trim
+        Dim name = txtgame.Text.Trim()
+        Dim path = txtSavepath.Text.Trim()
 
-        If SaveMode = "add" Then
-            If name = "" Or path = "" Then
-                MessageBox.Show("All fields are required", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
+        If SaveMode = "add" AndAlso (String.IsNullOrEmpty(name) OrElse String.IsNullOrEmpty(path)) Then
+            MessageBox.Show("All fields are required", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         End If
 
-        If SaveMode = "edit" Or SaveMode = "delete" Then
-            If name = "" Then
-                MessageBox.Show("Please select a game to " & SaveMode, "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
+        If (SaveMode = "edit" OrElse SaveMode = "delete") AndAlso String.IsNullOrEmpty(name) Then
+            MessageBox.Show($"Please select a game to {SaveMode}", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         End If
 
-        result = MessageBox.Show("Do you want to " & txtgame.Text.Trim & " to be " & SaveMode & "?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-
-        If SaveMode = "add" Then
-            If result = DialogResult.Yes Then
-                Dim success As Boolean = add(name, path, Form1.gamesXML, "game", "name", "path", False)
-                If Not success Then
-                    Exit Sub
-                End If
-                MessageBox.Show("Save Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("Save Cancelled", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
+        Dim result = MessageBox.Show($"Do you want to {SaveMode} {name}?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+        If result = DialogResult.Yes Then
+            Select Case SaveMode
+                Case "add"
+                    If AddGame(name, path, Form1.gamesXML, "game", "name", "path", False) Then
+                        MessageBox.Show("Save Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                Case "edit"
+                    EditGame(name, path, Form1.gamesXML, "game", "name", "path", False)
+                    MessageBox.Show("Save Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Case "delete"
+                    DeleteGame(name, Form1.gamesXML, "game", "name")
+                    MessageBox.Show("Deletion Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End Select
+        Else
+            MessageBox.Show($"{SaveMode} Cancelled", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
-
-        If SaveMode = "edit" Then
-            If result = DialogResult.Yes Then
-                edit(name, path, Form1.gamesXML, "game", "name", "path", False)
-                MessageBox.Show("Save Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("Save Cancelled", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
-        End If
-
-        If SaveMode = "delete" Then
-            If result = DialogResult.Yes Then
-                delete(name, path, Form1.gamesXML, "game", "name")
-                MessageBox.Show("Deletion Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("Deltion Cancelled", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
-        End If
-        reset()
+        ResetGameFields()
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-        reset()
+        ResetGameFields()
     End Sub
 
     Private Sub btnadd2_Click(sender As Object, e As EventArgs) Handles btnadd2.Click
-        open2()
+        OpenUserFields()
         SaveMode2 = "add"
-        txtUser.Enabled = True
-        txtPass.Enabled = True
     End Sub
 
     Private Sub btnedit2_Click(sender As Object, e As EventArgs) Handles btnedit2.Click
-        open2()
+        OpenUserFields()
         ListBox2.Enabled = True
         txtUser.Enabled = False
         txtPass.Enabled = True
@@ -210,7 +180,7 @@ Public Class settings
     End Sub
 
     Private Sub btndelete2_Click(sender As Object, e As EventArgs) Handles btndelete2.Click
-        open2()
+        OpenUserFields()
         ListBox2.Enabled = True
         txtUser.Enabled = False
         txtPass.Enabled = False
@@ -218,56 +188,37 @@ Public Class settings
     End Sub
 
     Private Sub btnsave2_Click(sender As Object, e As EventArgs) Handles btnsave2.Click
-        Dim result As DialogResult
-        Dim name = txtUser.Text.Trim
-        Dim path = txtPass.Text.Trim
+        Dim name = txtUser.Text.Trim()
+        Dim path = txtPass.Text.Trim()
 
-        If SaveMode2 = "add" Then
-            If name = "" Or path = "" Then
-                MessageBox.Show("All fields are required", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
+        If SaveMode2 = "add" AndAlso (String.IsNullOrEmpty(name) OrElse String.IsNullOrEmpty(path)) Then
+            MessageBox.Show("All fields are required", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         End If
 
-        If SaveMode2 = "edit" Or SaveMode2 = "delete" Then
-            If name = "" Then
-                MessageBox.Show("Please select a game to " & SaveMode2, "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
+        If (SaveMode2 = "edit" OrElse SaveMode2 = "delete") AndAlso String.IsNullOrEmpty(name) Then
+            MessageBox.Show($"Please select a user to {SaveMode2}", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
         End If
 
-        result = MessageBox.Show("Do you want to " & name & " to be " & SaveMode2 & "?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-
-        If SaveMode2 = "add" Then
-            If result = DialogResult.Yes Then
-                Dim success As Boolean = add(name, path, Form1.userXML, "user", "username", "passwordHash", True)
-                If Not success Then
-                    Exit Sub
-                End If
-                MessageBox.Show("Save Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("Save Cancelled", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
+        Dim result = MessageBox.Show($"Do you want to {SaveMode2} {name}?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+        If result = DialogResult.Yes Then
+            Select Case SaveMode2
+                Case "add"
+                    If AddGame(name, path, Form1.userXML, "user", "username", "passwordHash", True) Then
+                        MessageBox.Show("Save Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                Case "edit"
+                    EditGame(name, path, Form1.userXML, "user", "username", "passwordHash", True)
+                    MessageBox.Show("Save Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Case "delete"
+                    DeleteGame(name, Form1.userXML, "user", "username")
+                    MessageBox.Show("Deletion Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End Select
+        Else
+            MessageBox.Show($"{SaveMode2} Cancelled", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
-
-        If SaveMode2 = "edit" Then
-            If result = DialogResult.Yes Then
-                edit(name, path, Form1.userXML, "user", "username", "passwordHash", True)
-                MessageBox.Show("Save Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("Save Cancelled", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
-        End If
-
-        If SaveMode2 = "delete" Then
-            If result = DialogResult.Yes Then
-                delete(name, path, Form1.userXML, "user", "username")
-                MessageBox.Show("Deletion Complete", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Else
-                MessageBox.Show("Deltion Cancelled", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            End If
-        End If
-        reset2()
+        ResetUserFields()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -277,41 +228,31 @@ Public Class settings
         doc.Save(Form1.adminXML)
         MessageBox.Show("Admin Password Change Successful", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         NewAdminPassword.Clear()
-        Me.Close()
     End Sub
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
-        Dim selectedItem As String = ListBox1.SelectedItem
-        Dim doc As XmlDocument = New XmlDocument()
+        Dim selectedItem As String = ListBox1.SelectedItem.ToString()
+        Dim doc As New XmlDocument()
         doc.Load(Form1.gamesXML)
-        selectedItem = selectedItem
-        Dim xpathExpression = $"/games/game[name='{selectedItem}']/path"
+        Dim pathNode As XmlNode = doc.SelectSingleNode($"/games/game[name='{selectedItem}']/path")
 
-        If xpathExpression.Equals(String.Empty) Then
-            Exit Sub
-        End If
-        Dim pathNode As XmlNode = doc.SelectSingleNode(xpathExpression)
-
-        txtgame.Text = ListBox1.SelectedItem
-        If Not pathNode Is Nothing Then
+        txtgame.Text = selectedItem
+        If pathNode IsNot Nothing Then
             txtSavepath.Text = pathNode.InnerText
         End If
     End Sub
 
     Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
-        Dim selectedItem As String = ListBox2.SelectedItem
-        Dim doc As XmlDocument = New XmlDocument()
+        Dim selectedItem As String = ListBox2.SelectedItem.ToString()
+        Dim doc As New XmlDocument()
         doc.Load(Form1.userXML)
-        selectedItem = CleanStringForPath(selectedItem)
-        Dim xpathExpression = $"/users/user[username='{selectedItem}']/passwordHash"
-        Dim pathNode As XmlNode = doc.SelectSingleNode(xpathExpression)
-        txtUser.Text = ListBox2.SelectedItem
-        If Not pathNode Is Nothing Then
-            Dim node = Decrypt(pathNode.InnerText)
-            txtPass.Text = node
+        Dim pathNode As XmlNode = doc.SelectSingleNode($"/users/user[username='{selectedItem}']/passwordHash")
+
+        txtUser.Text = selectedItem
+        If pathNode IsNot Nothing Then
+            txtPass.Text = Decrypt(pathNode.InnerText)
         End If
     End Sub
-
 
     Sub updateXML()
         Dim localFilePath As String = Form1.gamesXML
@@ -345,13 +286,4 @@ Public Class settings
         Next
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim result = MessageBox.Show("Do you want to update?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
-        If result = DialogResult.Yes Then
-            updateXML()
-            ListBox1.Items.Clear()
-            ListBox1.Items.AddRange(loadList(Form1.gamesXML, "game", "name").ToArray())
-            MessageBox.Show("Game List updated", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
-    End Sub
 End Class

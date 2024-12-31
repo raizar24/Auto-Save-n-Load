@@ -4,7 +4,6 @@ Imports System.Text.RegularExpressions
 Imports System.Xml
 
 Module mods
-
     Sub CopyFile(ByVal sourcePath As String, ByVal destinationPath As String)
         If File.Exists(sourcePath) Then
             File.Copy(sourcePath, destinationPath, True)
@@ -66,36 +65,29 @@ Module mods
         Dim command As String = "/C mklink /D """ & sourcePath & """ """ & targetPath & """"
         Try
             logBuilder.AppendLine($"{DateTime.Now}: Creating symbolic link from {sourcePath} to {targetPath}")
-
-            Dim process As New Process()
-            With process.StartInfo
-                .FileName = "cmd.exe"
-                .Arguments = command
-                .WindowStyle = ProcessWindowStyle.Hidden
-                .CreateNoWindow = True
-                .RedirectStandardOutput = True
-                .RedirectStandardError = True
-                .UseShellExecute = False
-            End With
-
-            process.Start()
-            process.WaitForExit()
-
-            Dim output As String = process.StandardOutput.ReadToEnd()
-            Dim errorOutput As String = process.StandardError.ReadToEnd()
-
-
-            If process.ExitCode = 0 Then
-                logBuilder.AppendLine($"{DateTime.Now}: Symbolic link created successfully.")
-            Else
-                logBuilder.AppendLine($"{DateTime.Now}: Failed to create symbolic link. Source: {sourcePath} to {targetPath} Exit code: {process.ExitCode}. Error: {errorOutput}")
-            End If
-
+            Using process As New Process()
+                With process.StartInfo
+                    .FileName = "cmd.exe"
+                    .Arguments = command
+                    .WindowStyle = ProcessWindowStyle.Hidden
+                    .CreateNoWindow = True
+                    .RedirectStandardOutput = True
+                    .RedirectStandardError = True
+                    .UseShellExecute = False
+                End With
+                process.Start()
+                process.WaitForExit()
+                Dim errorOutput As String = process.StandardError.ReadToEnd()
+                If process.ExitCode = 0 Then
+                    logBuilder.AppendLine($"{DateTime.Now}: Symbolic link created successfully.")
+                Else
+                    logBuilder.AppendLine($"{DateTime.Now}: Failed to create symbolic link. Source: {sourcePath} to {targetPath} Exit code: {process.ExitCode}. Error: {errorOutput}")
+                End If
+            End Using
         Catch ex As Exception
             logBuilder.AppendLine($"{DateTime.Now}: Error creating symbolic link: {ex.Message}")
         End Try
     End Sub
-
 
     Sub RemoveSymbolicLinks(ByVal xmlFile As String)
         Dim xmlDoc As New XmlDocument()
@@ -149,35 +141,18 @@ Module mods
     End Function
 
     Function ContainsSpecialCommand(input As String) As String
-        Dim userProfile As String = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
-        Dim appData As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
-        Dim localAppData As String = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
-        Dim programData As String = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)
+        Dim replacements As New Dictionary(Of String, String)(StringComparer.OrdinalIgnoreCase) From {
+        {"%appdata%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)},
+        {"%userprofile%", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)},
+        {"%localappdata%", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)},
+        {"%programdata%", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)}
+    }
 
-        Dim appdataRegex As New Regex("%appdata%", RegexOptions.IgnoreCase)
-        Dim userProfileRegex As New Regex("%userprofile%", RegexOptions.IgnoreCase)
-        Dim localAppDataRegex As New Regex("%localappdata%", RegexOptions.IgnoreCase)
-        Dim programDataRegex As New Regex("%programdata%", RegexOptions.IgnoreCase)
+        For Each key As String In replacements.Keys
+            input = Regex.Replace(input, key, replacements(key), RegexOptions.IgnoreCase)
+        Next
 
-        Dim result As String = input
-
-        If appdataRegex.IsMatch(input) Then
-            result = appdataRegex.Replace(input, appData)
-        End If
-
-        If userProfileRegex.IsMatch(input) Then
-            result = userProfileRegex.Replace(result, userProfile)
-        End If
-
-        If localAppDataRegex.IsMatch(input) Then
-            result = localAppDataRegex.Replace(result, localAppData)
-        End If
-
-        If programDataRegex.IsMatch(input) Then
-            result = programDataRegex.Replace(result, programData)
-        End If
-
-        Return result
+        Return input
     End Function
 
     Function CleanStringForPath(ByVal input As String) As String

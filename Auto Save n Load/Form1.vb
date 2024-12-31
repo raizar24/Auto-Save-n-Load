@@ -10,11 +10,9 @@ Public Class Form1
     Public adminXML As String = Path.Combine(serverLocation, "admin.xml")
     Dim currentUser As String = Path.Combine(serverLocation, username)
     Dim userSession As String = Path.Combine(Path.GetTempPath(), "session.txt")
-
     <DllImport("user32.dll")>
     Private Shared Function ShowWindow(hWnd As IntPtr, nCmdShow As Integer) As Boolean
     End Function
-
     <DllImport("user32.dll")>
     Private Shared Function SetForegroundWindow(hWnd As IntPtr) As Boolean
     End Function
@@ -25,19 +23,16 @@ Public Class Form1
 
         Dim currentProcess As Process = Process.GetCurrentProcess()
         Dim runningProcesses As Process() = Process.GetProcessesByName(currentProcess.ProcessName)
-
-        ' Bring the already running instance to the foreground if found
         For Each process As Process In runningProcesses
             If process.Id <> currentProcess.Id Then
                 If process.MainWindowHandle <> IntPtr.Zero Then
-                    ' Instead of using ShowWindow, restore the form using .Show()
-                    Me.Show() ' Use Me.Show() to unhide the form
+                    Me.Show()
                     SetForegroundWindow(process.MainWindowHandle)
                 End If
 
                 MessageBox.Show("Program already running.", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Me.Close() ' Close this instance if another is already running
-                Return ' Exit this instance
+                Me.Close()
+                Return
             End If
         Next
 
