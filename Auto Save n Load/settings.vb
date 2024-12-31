@@ -230,6 +230,16 @@ Public Class Settings
         NewAdminPassword.Clear()
     End Sub
 
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim result = MessageBox.Show("Do you want to update?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
+        If result = DialogResult.Yes Then
+            updateXML()
+            ListBox1.Items.Clear()
+            ListBox1.Items.AddRange(loadList(Form1.gamesXML, "game", "name").ToArray())
+            MessageBox.Show("Game List updated", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+    End Sub
+
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         Dim selectedItem As String = ListBox1.SelectedItem.ToString()
         Dim doc As New XmlDocument()

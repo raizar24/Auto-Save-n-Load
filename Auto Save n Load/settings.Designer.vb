@@ -360,14 +360,14 @@ Partial Class settings
         NewAdminPassword.Size = New Size(270, 23)
         NewAdminPassword.TabIndex = 26
         ' 
-        ' settings
+        ' Settings
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(677, 445)
         Controls.Add(TabControl1)
         FormBorderStyle = FormBorderStyle.SizableToolWindow
-        Name = "settings"
+        Name = "Settings"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Settings"
         TabControl1.ResumeLayout(False)
