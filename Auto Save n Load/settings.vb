@@ -221,15 +221,6 @@ Public Class Settings
         ResetUserFields()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim doc As XDocument = XDocument.Load(Form1.adminXML)
-        Dim password = Encrypt(NewAdminPassword.Text.Trim())
-        doc.<passwordHash>.Value = password
-        doc.Save(Form1.adminXML)
-        MessageBox.Show("Admin Password Change Successful", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        NewAdminPassword.Clear()
-    End Sub
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Dim result = MessageBox.Show("Do you want to update?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
         If result = DialogResult.Yes Then

@@ -42,9 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="admin.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="games.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

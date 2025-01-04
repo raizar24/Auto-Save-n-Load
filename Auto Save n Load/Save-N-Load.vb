@@ -1,10 +1,12 @@
 ﻿Imports System.IO
+Imports System.Net
+Imports System.Net.Sockets
 Imports System.Runtime.InteropServices
-Imports Microsoft.SqlServer
+Imports System.Text.RegularExpressions
 
 Public Class Form1
     Dim username As String = Environment.MachineName.ToUpper
-    Public serverLocation As String = checkBackSlash(loadXML("sharedFolder"))
+    Public serverLocation As String = EnsureTrailingSlash(loadXML("sharedFolder"))
     Public userXML As String = Path.Combine(serverLocation, "users.xml")
     Public gamesXML As String = Path.Combine(serverLocation, "games.xml")
     Public adminXML As String = Path.Combine(serverLocation, "admin.xml")
@@ -40,10 +42,9 @@ Public Class Form1
         StartPosition = FormStartPosition.Manual
         Dim xValue = Screen.PrimaryScreen.Bounds.Width - 300
         Dim yValue = Screen.PrimaryScreen.Bounds.Height - 500
-        Me.Location = New Point(xValue, yValue)
+        Location = New Point(xValue, yValue)
         Try
             If Not CheckServerAvailability() Then Exit Sub
-
             If Not File.Exists(userXML) Then
                 CopyFile("users.xml", userXML)
             End If
@@ -51,21 +52,17 @@ Public Class Form1
             If Not File.Exists(gamesXML) Then
                 CopyFile("games.xml", gamesXML)
             End If
-
-            If Not File.Exists(adminXML) Then
-                CopyFile("admin.xml", adminXML)
-            End If
-
             lblCurrentUser.Text = username
             If Not Directory.Exists(currentUser) Then
                 Directory.CreateDirectory(currentUser)
             End If
             UpdateSymbolicLinks()
-            checkCurrentUser()
+            CheckCurrentUser()
         Catch ex As Exception
             MessageBox.Show($"Please run this program as administrator: {ex.Message}",
-                            "System Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                "System Information", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+
     End Sub
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
         If Not CheckServerAvailability() Then Exit Sub
@@ -82,16 +79,15 @@ Public Class Form1
         If isValidUser Then
             username = myUserName.ToUpper
             lblCurrentUser.Text = username
-
-            If Not Directory.Exists(currentUser) Then
-                Directory.CreateDirectory(currentUser)
-            End If
+            Directory.CreateDirectory(currentUser)
             UpdateSymbolicLinks()
 
             If File.Exists(userSession) Then File.Delete(userSession)
             File.WriteAllText(userSession, username)
 
             checkCurrentUser()
+            Panel1.Visible = True
+            Panel1.Location = New Point(8, 147)
             MessageBox.Show("Login Successful", "System Information",
                             MessageBoxButtons.OK, MessageBoxIcon.Information)
             txtPassword.Text = String.Empty
@@ -111,14 +107,22 @@ Public Class Form1
             UpdateSymbolicLinks()
 
             If File.Exists(userSession) Then File.Delete(userSession)
+            checkCurrentUser()
+            Panel1.Visible = False
         End If
     End Sub
     Private Sub UpdateSymbolicLinks()
-        currentUser = Path.Combine(serverLocation, username)
-        RemoveSymbolicLinks(gamesXML)
-        CreateSymbolicLinks(gamesXML, currentUser)
+        If Not IsServerEnvironment(serverLocation) Then
+            currentUser = Path.Combine(serverLocation, username)
+            RemoveSymbolicLinks(gamesXML)
+            CreateSymbolicLinks(gamesXML, currentUser)
+        Else
+            Dim settings As New Settings
+            settings.ShowDialog()
+            Close()
+        End If
     End Sub
-    Sub checkCurrentUser()
+    Private Sub CheckCurrentUser()
         If username.Equals(Environment.MachineName) Then
             lblUser.Text = "PUBLIC SAVE"
         Else
@@ -132,12 +136,6 @@ Public Class Form1
         If Not CheckServerAvailability() Then Exit Sub
         Dim register As New register()
         register.ShowDialog()
-    End Sub
-
-    Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
-        If Not CheckServerAvailability() Then Exit Sub
-        Dim admin As New admin()
-        admin.ShowDialog()
     End Sub
     Private Function CheckServerAvailability() As Boolean
         If Not Directory.Exists(serverLocation) Then
@@ -159,4 +157,48 @@ Public Class Form1
         NotifyIcon1.Visible = False
         Application.Exit()
     End Sub
+    Private Sub txtPassword_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPassword.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            btnLogin.PerformClick()
+        End If
+    End Sub
+
+    Function IsServerEnvironment(ByVal serverLoc As String) As Boolean
+        Try
+            Dim regex As New Regex("\\\\(?<name>[^\\]+)\\")
+            Dim match As Match = regex.Match(serverLoc)
+            Dim server As String = match.Groups("name").Value
+
+            Dim localIPs As List(Of String) = GetLocalIPAddresses()
+
+            Dim computerName As String = Environment.MachineName
+            If localIPs.Contains(server, StringComparer.OrdinalIgnoreCase) Then
+                Return True
+            ElseIf server.Equals(computerName, StringComparison.OrdinalIgnoreCase) Then
+                Return True
+            End If
+
+            Return False
+        Catch ex As Exception
+            MessageBox.Show($"Error: {ex.Message}", "Exception Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+    Function GetLocalIPAddresses() As List(Of String)
+        Dim ipAddresses As New List(Of String)()
+        Dim host As String = Dns.GetHostName()
+        Dim addresses As IPAddress() = Dns.GetHostAddresses(host)
+
+        For Each ip As IPAddress In addresses
+            If ip.AddressFamily = AddressFamily.InterNetwork Then
+                ipAddresses.Add(ip.ToString())
+            End If
+        Next
+
+        If ipAddresses.Count = 0 Then
+            Throw New Exception("No network adapters with an IPv4 address in the system")
+        End If
+
+        Return ipAddresses
+    End Function
 End Class

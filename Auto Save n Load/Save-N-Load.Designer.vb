@@ -35,12 +35,14 @@ Partial Class Form1
         lblUser = New Label()
         Label3 = New Label()
         btnlogout = New Button()
-        btnSettings = New Button()
         NotifyIcon1 = New NotifyIcon(components)
         ContextMenuStrip1 = New ContextMenuStrip(components)
         OpenToolStripMenuItem = New ToolStripMenuItem()
         QuitToolStripMenuItem = New ToolStripMenuItem()
+        Label4 = New Label()
+        Panel1 = New Panel()
         ContextMenuStrip1.SuspendLayout()
+        Panel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' btnClose
@@ -51,7 +53,7 @@ Partial Class Form1
         btnClose.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point)
         btnClose.Location = New Point(246, 8)
         btnClose.Name = "btnClose"
-        btnClose.Size = New Size(32, 34)
+        btnClose.Size = New Size(32, 29)
         btnClose.TabIndex = 0
         btnClose.Text = "X"
         btnClose.UseVisualStyleBackColor = False
@@ -59,7 +61,7 @@ Partial Class Form1
         ' txtUserName
         ' 
         txtUserName.BackColor = SystemColors.Info
-        txtUserName.Location = New Point(91, 179)
+        txtUserName.Location = New Point(91, 156)
         txtUserName.Name = "txtUserName"
         txtUserName.Size = New Size(181, 23)
         txtUserName.TabIndex = 1
@@ -67,7 +69,7 @@ Partial Class Form1
         ' txtPassword
         ' 
         txtPassword.BackColor = SystemColors.Info
-        txtPassword.Location = New Point(91, 209)
+        txtPassword.Location = New Point(91, 186)
         txtPassword.Name = "txtPassword"
         txtPassword.PasswordChar = "*"c
         txtPassword.Size = New Size(181, 23)
@@ -80,7 +82,7 @@ Partial Class Form1
         btnLogin.FlatStyle = FlatStyle.Flat
         btnLogin.Font = New Font("Arial Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point)
         btnLogin.ForeColor = SystemColors.ControlLightLight
-        btnLogin.Location = New Point(12, 243)
+        btnLogin.Location = New Point(12, 224)
         btnLogin.Name = "btnLogin"
         btnLogin.Size = New Size(266, 47)
         btnLogin.TabIndex = 3
@@ -94,9 +96,9 @@ Partial Class Form1
         btnRegister.FlatStyle = FlatStyle.Flat
         btnRegister.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
         btnRegister.ForeColor = Color.WhiteSmoke
-        btnRegister.Location = New Point(65, 296)
+        btnRegister.Location = New Point(65, 281)
         btnRegister.Name = "btnRegister"
-        btnRegister.Size = New Size(156, 30)
+        btnRegister.Size = New Size(156, 42)
         btnRegister.TabIndex = 4
         btnRegister.Text = "Create a new account"
         btnRegister.UseVisualStyleBackColor = False
@@ -104,7 +106,7 @@ Partial Class Form1
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(12, 182)
+        Label1.Location = New Point(12, 159)
         Label1.Name = "Label1"
         Label1.Size = New Size(68, 15)
         Label1.TabIndex = 5
@@ -113,7 +115,7 @@ Partial Class Form1
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(12, 209)
+        Label2.Location = New Point(12, 186)
         Label2.Name = "Label2"
         Label2.Size = New Size(57, 15)
         Label2.TabIndex = 6
@@ -123,7 +125,7 @@ Partial Class Form1
         ' 
         lblCurrentUser.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         lblCurrentUser.Font = New Font("Arial", 24F, FontStyle.Bold, GraphicsUnit.Point)
-        lblCurrentUser.Location = New Point(9, 96)
+        lblCurrentUser.Location = New Point(9, 80)
         lblCurrentUser.Name = "lblCurrentUser"
         lblCurrentUser.Size = New Size(263, 47)
         lblCurrentUser.TabIndex = 7
@@ -133,7 +135,7 @@ Partial Class Form1
         ' lblUser
         ' 
         lblUser.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
-        lblUser.Location = New Point(81, 143)
+        lblUser.Location = New Point(81, 127)
         lblUser.Name = "lblUser"
         lblUser.Size = New Size(113, 14)
         lblUser.TabIndex = 8
@@ -144,7 +146,7 @@ Partial Class Form1
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI Black", 21.75F, FontStyle.Bold, GraphicsUnit.Point)
-        Label3.Location = New Point(8, 56)
+        Label3.Location = New Point(8, 40)
         Label3.Name = "Label3"
         Label3.Size = New Size(274, 40)
         Label3.TabIndex = 9
@@ -163,15 +165,6 @@ Partial Class Form1
         btnlogout.TabIndex = 10
         btnlogout.Text = "LOG OUT"
         btnlogout.UseVisualStyleBackColor = False
-        ' 
-        ' btnSettings
-        ' 
-        btnSettings.Location = New Point(9, 12)
-        btnSettings.Name = "btnSettings"
-        btnSettings.Size = New Size(75, 23)
-        btnSettings.TabIndex = 13
-        btnSettings.Text = "Settings"
-        btnSettings.UseVisualStyleBackColor = True
         ' 
         ' NotifyIcon1
         ' 
@@ -198,13 +191,32 @@ Partial Class Form1
         QuitToolStripMenuItem.Size = New Size(103, 22)
         QuitToolStripMenuItem.Text = "Quit"
         ' 
+        ' Label4
+        ' 
+        Label4.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point)
+        Label4.Location = New Point(5, 14)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(263, 147)
+        Label4.TabIndex = 0
+        Label4.Text = "Your game progress is being saved automatically. When you're finished playing any offline games, please be sure to log out."
+        Label4.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' Panel1
+        ' 
+        Panel1.Controls.Add(Label4)
+        Panel1.Location = New Point(246, 143)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(273, 180)
+        Panel1.TabIndex = 14
+        Panel1.Visible = False
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.White
         ClientSize = New Size(287, 391)
-        Controls.Add(btnSettings)
+        Controls.Add(Panel1)
         Controls.Add(btnlogout)
         Controls.Add(Label3)
         Controls.Add(lblUser)
@@ -219,8 +231,9 @@ Partial Class Form1
         FormBorderStyle = FormBorderStyle.None
         Name = "Form1"
         StartPosition = FormStartPosition.Manual
-        Text = "Form1"
+        Text = "Save N Load"
         ContextMenuStrip1.ResumeLayout(False)
+        Panel1.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -236,10 +249,11 @@ Partial Class Form1
     Friend WithEvents lblUser As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents btnlogout As Button
-    Friend WithEvents btnSettings As Button
     Friend WithEvents NotifyIcon1 As NotifyIcon
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents OpenToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents QuitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Panel1 As Panel
 
 End Class
