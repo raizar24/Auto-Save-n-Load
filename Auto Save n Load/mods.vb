@@ -36,23 +36,15 @@ Module mods
                 Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(pathNode))
                 Dim targetPath As String = IO.Path.Combine(destinationFolder, nameNode, folderName)
                 targetPath = EnsureTrailingSlash(targetPath)
-                logBuilder.AppendLine($"{DateTime.Now}: Processing game '{nameNode}' with source path '{pathNode}'")
-
                 If Not Directory.Exists(targetPath) Then
                     Directory.CreateDirectory(targetPath)
-                    logBuilder.AppendLine($"{DateTime.Now}: Created directory '{targetPath}'")
                 End If
-
                 Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(pathNode))
-
                 If Not Directory.Exists(sourceParentDirectory) Then
                     Directory.CreateDirectory(sourceParentDirectory)
-                    logBuilder.AppendLine($"{DateTime.Now}: Created directory '{sourceParentDirectory}'")
                 End If
-
                 doSymbolicLink(pathNode, targetPath, logBuilder)
             End Sub)
-
             logBuilder.AppendLine($"{DateTime.Now}: Successfully completed creating symbolic links for all games.")
         Catch ex As Exception
             logBuilder.AppendLine($"{DateTime.Now}: Error occurred: {ex.Message}")
