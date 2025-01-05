@@ -71,9 +71,6 @@ or you can do this
 - Copy the shortcut you created in the previous step and paste it into the Startup folder.
 
 ---
-
-
-#### Setting default Password: 123123
 ### Path Structure Rules for adding game's save directories
 
 - **%appdata%**: `C:\Users\<Username>\AppData\Roaming`
