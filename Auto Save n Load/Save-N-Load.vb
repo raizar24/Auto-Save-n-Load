@@ -48,14 +48,11 @@ Public Class Form1
             If Not File.Exists(userXML) Then
                 CopyFile("users.xml", userXML)
             End If
-
             If Not File.Exists(gamesXML) Then
                 CopyFile("games.xml", gamesXML)
             End If
             lblCurrentUser.Text = username
-            If Not Directory.Exists(currentUser) Then
-                Directory.CreateDirectory(currentUser)
-            End If
+            Directory.CreateDirectory(currentUser)
             UpdateSymbolicLinks()
             CheckCurrentUser()
         Catch ex As Exception
@@ -164,6 +161,13 @@ Public Class Form1
     End Sub
 
     Function IsServerEnvironment(ByVal serverLoc As String) As Boolean
+
+        Dim isDeveloperMode As Boolean = Environment.GetEnvironmentVariable("DEVELOPER_MODE") = "true"
+        If isDeveloperMode Then
+            Button1.Visible = True
+            Return False
+        End If
+
         Try
             Dim regex As New Regex("\\\\(?<name>[^\\]+)\\")
             Dim match As Match = regex.Match(serverLoc)
@@ -201,4 +205,9 @@ Public Class Form1
 
         Return ipAddresses
     End Function
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim settings As New Settings
+        settings.ShowDialog()
+    End Sub
 End Class

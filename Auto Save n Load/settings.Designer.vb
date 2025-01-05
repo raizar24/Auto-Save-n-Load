@@ -75,7 +75,7 @@ Partial Class settings
         ' 
         btncancel2.Enabled = False
         btncancel2.Image = My.Resources.Resources.icons8_cancel_50
-        btncancel2.Location = New Point(414, 260)
+        btncancel2.Location = New Point(438, 230)
         btncancel2.Name = "btncancel2"
         btncancel2.Size = New Size(114, 76)
         btncancel2.TabIndex = 36
@@ -87,7 +87,7 @@ Partial Class settings
         ' 
         btnsave2.Enabled = False
         btnsave2.Image = My.Resources.Resources.icons8_save_48
-        btnsave2.Location = New Point(294, 260)
+        btnsave2.Location = New Point(318, 230)
         btnsave2.Name = "btnsave2"
         btnsave2.Size = New Size(114, 76)
         btnsave2.TabIndex = 35
@@ -100,7 +100,7 @@ Partial Class settings
         ListBox2.AllowDrop = True
         ListBox2.FormattingEnabled = True
         ListBox2.ItemHeight = 15
-        ListBox2.Location = New Point(22, 11)
+        ListBox2.Location = New Point(6, 6)
         ListBox2.Name = "ListBox2"
         ListBox2.Size = New Size(211, 379)
         ListBox2.TabIndex = 34
@@ -108,7 +108,7 @@ Partial Class settings
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(246, 115)
+        Label3.Location = New Point(254, 93)
         Label3.Name = "Label3"
         Label3.Size = New Size(60, 15)
         Label3.TabIndex = 33
@@ -117,7 +117,7 @@ Partial Class settings
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(246, 74)
+        Label4.Location = New Point(254, 52)
         Label4.Name = "Label4"
         Label4.Size = New Size(33, 15)
         Label4.TabIndex = 32
@@ -126,7 +126,7 @@ Partial Class settings
         ' txtPass
         ' 
         txtPass.Enabled = False
-        txtPass.Location = New Point(310, 112)
+        txtPass.Location = New Point(318, 90)
         txtPass.Name = "txtPass"
         txtPass.Size = New Size(270, 23)
         txtPass.TabIndex = 31
@@ -134,7 +134,7 @@ Partial Class settings
         ' txtUser
         ' 
         txtUser.Enabled = False
-        txtUser.Location = New Point(310, 71)
+        txtUser.Location = New Point(318, 49)
         txtUser.Name = "txtUser"
         txtUser.Size = New Size(270, 23)
         txtUser.TabIndex = 27
@@ -142,9 +142,9 @@ Partial Class settings
         ' btndelete2
         ' 
         btndelete2.Image = My.Resources.Resources.icons8_delete_30
-        btndelete2.Location = New Point(479, 174)
+        btndelete2.Location = New Point(495, 149)
         btndelete2.Name = "btndelete2"
-        btndelete2.Size = New Size(114, 80)
+        btndelete2.Size = New Size(114, 75)
         btndelete2.TabIndex = 30
         btndelete2.Text = "Delete"
         btndelete2.TextImageRelation = TextImageRelation.ImageAboveText
@@ -153,9 +153,9 @@ Partial Class settings
         ' btnedit2
         ' 
         btnedit2.Image = My.Resources.Resources.icons8_edit_50
-        btnedit2.Location = New Point(359, 174)
+        btnedit2.Location = New Point(375, 149)
         btnedit2.Name = "btnedit2"
-        btnedit2.Size = New Size(114, 80)
+        btnedit2.Size = New Size(114, 75)
         btnedit2.TabIndex = 29
         btnedit2.Text = "Edit"
         btnedit2.TextImageRelation = TextImageRelation.ImageAboveText
@@ -164,9 +164,9 @@ Partial Class settings
         ' btnadd2
         ' 
         btnadd2.Image = My.Resources.Resources.icons8_add_48
-        btnadd2.Location = New Point(239, 174)
+        btnadd2.Location = New Point(255, 149)
         btnadd2.Name = "btnadd2"
-        btnadd2.Size = New Size(114, 80)
+        btnadd2.Size = New Size(114, 75)
         btnadd2.TabIndex = 28
         btnadd2.Text = "Add"
         btnadd2.TextImageRelation = TextImageRelation.ImageAboveText
@@ -190,7 +190,7 @@ Partial Class settings
         TabPage1.Padding = New Padding(3)
         TabPage1.Size = New Size(645, 393)
         TabPage1.TabIndex = 0
-        TabPage1.Text = "Game management"
+        TabPage1.Text = "Game Management"
         TabPage1.UseVisualStyleBackColor = True
         ' 
         ' Button2
@@ -231,9 +231,9 @@ Partial Class settings
         ListBox1.AllowDrop = True
         ListBox1.FormattingEnabled = True
         ListBox1.ItemHeight = 15
-        ListBox1.Location = New Point(15, 14)
+        ListBox1.Location = New Point(6, 6)
         ListBox1.Name = "ListBox1"
-        ListBox1.Size = New Size(211, 364)
+        ListBox1.Size = New Size(211, 379)
         ListBox1.Sorted = True
         ListBox1.TabIndex = 26
         ' 
@@ -275,7 +275,7 @@ Partial Class settings
         ' btnDelete
         ' 
         btnDelete.Image = My.Resources.Resources.icons8_delete_30
-        btnDelete.Location = New Point(496, 150)
+        btnDelete.Location = New Point(495, 150)
         btnDelete.Name = "btnDelete"
         btnDelete.Size = New Size(114, 74)
         btnDelete.TabIndex = 22
@@ -286,7 +286,7 @@ Partial Class settings
         ' btnEdit
         ' 
         btnEdit.Image = My.Resources.Resources.icons8_edit_50
-        btnEdit.Location = New Point(376, 150)
+        btnEdit.Location = New Point(375, 150)
         btnEdit.Name = "btnEdit"
         btnEdit.Size = New Size(114, 74)
         btnEdit.TabIndex = 21
@@ -297,7 +297,7 @@ Partial Class settings
         ' btnAdd
         ' 
         btnAdd.Image = My.Resources.Resources.icons8_add_48
-        btnAdd.Location = New Point(256, 150)
+        btnAdd.Location = New Point(255, 150)
         btnAdd.Name = "btnAdd"
         btnAdd.Size = New Size(114, 74)
         btnAdd.TabIndex = 20
@@ -321,7 +321,7 @@ Partial Class settings
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(677, 445)
         Controls.Add(TabControl1)
-        FormBorderStyle = FormBorderStyle.SizableToolWindow
+        FormBorderStyle = FormBorderStyle.FixedToolWindow
         Name = "Settings"
         StartPosition = FormStartPosition.CenterScreen
         Text = "SAVE N LOAD SERVER"

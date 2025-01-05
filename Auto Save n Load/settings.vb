@@ -1,9 +1,9 @@
 ﻿Imports System.Net.Http
-Imports System.Xml
 
 Public Class Settings
     Private SaveMode As String
     Private SaveMode2 As String
+
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         OpenGameFields()
         SaveMode = "add"
@@ -85,46 +85,54 @@ Public Class Settings
     End Sub
 
     Private Function AddGame(name As String, path As String, xml As String, parent As String, child As String, child2 As String, encryption As Boolean) As Boolean
-        Dim doc As New XmlDocument()
-        doc.Load(xml)
-        If name.Contains("'") Then
-            MessageBox.Show("Game Name must not contain single quotation mark", "System Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return False
-        End If
-        Dim xpathExpression As String = $"//{parent}/{child}[translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') = '{name.ToLower()}']"
-        Dim existingNode As XmlNode = doc.SelectSingleNode(xpathExpression)
+        Dim doc As XDocument = XDocument.Load(xml)
+        Dim existingNode = doc.Descendants(parent).FirstOrDefault(Function(element) String.Equals(element.Element(child)?.Value, name, StringComparison.OrdinalIgnoreCase))
+        Dim existingPath = doc.Descendants(parent).FirstOrDefault(Function(element) String.Equals(element.Element(child2)?.Value, path, StringComparison.OrdinalIgnoreCase))
 
         If existingNode IsNot Nothing Then
             MessageBox.Show($"Item '{name}' already exists.", "System Information")
             Return False
         End If
 
-        Dim newElement As XmlElement = doc.CreateElement(parent)
-        Dim elementName As XmlElement = doc.CreateElement(child)
-        elementName.InnerText = name
-        Dim elementPath As XmlElement = doc.CreateElement(child2)
-        If encryption Then path = Encrypt(path)
-        elementPath.InnerText = path
+        If Not encryption Then
+            If existingPath IsNot Nothing Then
+                MessageBox.Show($"Item '{path}' already exists.", "System Information")
+                Return False
+            End If
+        End If
 
-        newElement.AppendChild(elementName)
-        newElement.AppendChild(elementPath)
-        doc.DocumentElement.AppendChild(newElement)
+        Dim newElement As New XElement(parent,
+                                       New XElement(child, name.Trim()),
+                                       New XElement(child2, If(encryption, Encrypt(path.Trim()), path.Trim())))
+
+        doc.Root.Add(newElement)
         doc.Save(xml)
         Return True
     End Function
 
     Private Sub DeleteGame(gameName As String, filePath As String, parent As String, child As String)
         Dim doc As XDocument = XDocument.Load(filePath)
-        Dim gameNode = doc.Descendants(parent).FirstOrDefault(Function(g) g.Element(child)?.Value = gameName)
+        Dim gameNode = doc.Descendants(parent).FirstOrDefault(Function(element) element.Element(child)?.Value = gameName)
         gameNode?.Remove()
         doc.Save(filePath)
     End Sub
 
     Private Sub EditGame(gameName As String, newPath As String, filePath As String, parent As String, child As String, child2 As String, encryption As Boolean)
         Dim doc As XDocument = XDocument.Load(filePath)
-        Dim gameNode = doc.Descendants(parent).FirstOrDefault(Function(g) g.Element(child)?.Value = gameName)
+        Dim gameNode = doc.Descendants(parent).FirstOrDefault(Function(element) String.Equals(element.Element(child)?.Value, gameName, StringComparison.OrdinalIgnoreCase))
+        Dim existingPath = doc.Descendants(parent).FirstOrDefault(Function(element) String.Equals(element.Element(child2)?.Value, newPath, StringComparison.OrdinalIgnoreCase))
+
+        If Not encryption Then
+            If existingPath IsNot Nothing Then
+                MessageBox.Show($"Item '{newPath}' already exists.", "System Information")
+                Exit Sub
+            End If
+        End If
+
         If encryption Then newPath = Encrypt(newPath)
-        If gameNode IsNot Nothing Then gameNode.Element(child2).Value = newPath
+        If gameNode IsNot Nothing Then
+            gameNode.Element(child2).Value = newPath.Trim()
+        End If
         doc.Save(filePath)
     End Sub
 
@@ -233,25 +241,23 @@ Public Class Settings
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         Dim selectedItem As String = ListBox1.SelectedItem.ToString()
-        Dim doc As New XmlDocument()
-        doc.Load(Form1.gamesXML)
-        Dim pathNode As XmlNode = doc.SelectSingleNode($"/games/game[name='{selectedItem}']/path")
+        Dim doc As XDocument = XDocument.Load(Form1.gamesXML)
+        Dim pathNode = doc.Descendants("game").FirstOrDefault(Function(element) element.Element("name")?.Value = selectedItem)?.Element("path")
 
         txtgame.Text = selectedItem
         If pathNode IsNot Nothing Then
-            txtSavepath.Text = pathNode.InnerText
+            txtSavepath.Text = pathNode.Value
         End If
     End Sub
 
     Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
         Dim selectedItem As String = ListBox2.SelectedItem.ToString()
-        Dim doc As New XmlDocument()
-        doc.Load(Form1.userXML)
-        Dim pathNode As XmlNode = doc.SelectSingleNode($"/users/user[username='{selectedItem}']/passwordHash")
+        Dim doc As XDocument = XDocument.Load(Form1.userXML)
+        Dim pathNode = doc.Descendants("user").FirstOrDefault(Function(element) element.Element("username")?.Value = selectedItem)?.Element("passwordHash")
 
         txtUser.Text = selectedItem
         If pathNode IsNot Nothing Then
-            txtPass.Text = Decrypt(pathNode.InnerText)
+            txtPass.Text = Decrypt(pathNode.Value)
         End If
     End Sub
 
@@ -277,7 +283,7 @@ Public Class Settings
         Dim githubRoot As XElement = githubXml.Root
 
         For Each githubGame As XElement In githubRoot.Elements("game")
-            Dim localGame As XElement = localRoot.Elements("game").FirstOrDefault(Function(e) e.Element("name")?.Value = githubGame.Element("name")?.Value)
+            Dim localGame As XElement = localRoot.Elements("game").FirstOrDefault(Function(element) element.Element("name")?.Value = githubGame.Element("name")?.Value)
 
             If localGame IsNot Nothing Then
                 localGame.Element("path")?.SetValue(githubGame.Element("path")?.Value)
@@ -288,3 +294,4 @@ Public Class Settings
     End Sub
 
 End Class
+

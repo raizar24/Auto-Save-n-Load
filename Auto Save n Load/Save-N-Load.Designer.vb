@@ -41,6 +41,7 @@ Partial Class Form1
         QuitToolStripMenuItem = New ToolStripMenuItem()
         Label4 = New Label()
         Panel1 = New Panel()
+        Button1 = New Button()
         ContextMenuStrip1.SuspendLayout()
         Panel1.SuspendLayout()
         SuspendLayout()
@@ -210,12 +211,23 @@ Partial Class Form1
         Panel1.TabIndex = 14
         Panel1.Visible = False
         ' 
+        ' Button1
+        ' 
+        Button1.Location = New Point(12, 14)
+        Button1.Name = "Button1"
+        Button1.Size = New Size(75, 23)
+        Button1.TabIndex = 15
+        Button1.Text = "SERVER"
+        Button1.UseVisualStyleBackColor = True
+        Button1.Visible = False
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.White
         ClientSize = New Size(287, 391)
+        Controls.Add(Button1)
         Controls.Add(Panel1)
         Controls.Add(btnlogout)
         Controls.Add(Label3)
@@ -255,5 +267,6 @@ Partial Class Form1
     Friend WithEvents QuitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label4 As Label
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents Button1 As Button
 
 End Class

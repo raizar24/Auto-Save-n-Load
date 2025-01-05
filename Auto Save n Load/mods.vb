@@ -1,9 +1,5 @@
 ﻿Imports System.IO
-Imports System.Net
-Imports System.Net.Sockets
 Imports System.Text
-Imports System.Text.RegularExpressions
-Imports System.Xml
 
 Module mods
     Sub CopyFile(ByVal sourcePath As String, ByVal destinationPath As String)
@@ -13,6 +9,7 @@ Module mods
             Throw New FileNotFoundException("Source file does not exist: " + sourcePath)
         End If
     End Sub
+
     Function loadList(ByVal xmlName As String, ByVal Descendant As String, ByVal element As String) As List(Of String)
         Dim doc As XDocument = XDocument.Load(xmlName)
         Dim listNames As List(Of String) = doc.Descendants(Descendant).Select(Function(game) game.Element(element).Value).ToList()
@@ -25,15 +22,14 @@ Module mods
         Dim logBuilder As New StringBuilder()
         Try
             logBuilder.AppendLine($"{DateTime.Now}: Starting the process for XML file '{xmlFile}' and destination folder '{destinationFolder}'")
-            Dim xmlDoc As New XmlDocument()
-            xmlDoc.Load(xmlFile)
+            Dim doc As XDocument = XDocument.Load(xmlFile)
 
-            Dim gameNodes As XmlNodeList = xmlDoc.SelectNodes("//game")
+            Dim gameNodes = doc.Descendants("game")
             Parallel.ForEach(
-            gameNodes.Cast(Of XmlNode),
+            gameNodes,
             Sub(gameNode)
-                Dim nameNode As String = CleanStringForPath(gameNode.SelectSingleNode("name").InnerText)
-                Dim pathNode As String = EnsureTrailingSlash(ContainsSpecialCommand(gameNode.SelectSingleNode("path").InnerText))
+                Dim nameNode As String = CleanStringForPath(gameNode.Element("name").Value)
+                Dim pathNode As String = EnsureTrailingSlash(Environment.ExpandEnvironmentVariables(gameNode.Element("path").Value))
                 Dim folderName As String = IO.Path.GetFileName(IO.Path.GetDirectoryName(pathNode))
                 Dim targetPath As String = EnsureTrailingSlash(IO.Path.Combine(destinationFolder, nameNode, folderName))
                 Dim sourceParentDirectory As String = IO.Path.GetDirectoryName(IO.Path.GetDirectoryName(pathNode))
@@ -78,21 +74,21 @@ Module mods
     End Sub
 
     Sub RemoveSymbolicLinks(ByVal xmlFile As String)
-        Dim xmlDoc As New XmlDocument()
-        xmlDoc.Load(xmlFile)
-        Dim pathNodes As XmlNodeList = xmlDoc.SelectNodes("//path")
+        Dim doc As XDocument = XDocument.Load(xmlFile)
+        Dim pathNodes = doc.Descendants("path")
 
         Parallel.ForEach(
-            pathNodes.Cast(Of XmlNode),
+            pathNodes,
             Sub(pathNode)
-                Dim sourcePath As String = ContainsSpecialCommand(pathNode.InnerText)
+                Dim sourcePath As String = Environment.ExpandEnvironmentVariables(pathNode.Value)
                 sourcePath = EnsureTrailingSlash(sourcePath)
                 If Directory.Exists(sourcePath) Then
                     Directory.Delete(sourcePath, True)
                 End If
             End Sub)
     End Sub
-    Function loadXML(ByVal value As String)
+
+    Function loadXML(ByVal value As String) As String
         Dim xDoc As XDocument = XDocument.Load("settings.xml")
         Dim xreturn As String = xDoc.Descendants(value).FirstOrDefault().Value
         Return xreturn
@@ -120,21 +116,6 @@ Module mods
         Return decryptedText
     End Function
 
-    Function ContainsSpecialCommand(input As String) As String
-        Dim replacements As New Dictionary(Of String, String)(StringComparer.OrdinalIgnoreCase) From {
-        {"%appdata%", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)},
-        {"%userprofile%", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)},
-        {"%localappdata%", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)},
-        {"%programdata%", Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)}
-    }
-
-        For Each key As String In replacements.Keys
-            input = Regex.Replace(input, key, replacements(key), RegexOptions.IgnoreCase)
-        Next
-
-        Return input
-    End Function
-
     Function CleanStringForPath(ByVal input As String) As String
         Dim invalidChars As Char() = IO.Path.GetInvalidFileNameChars()
         For Each ch As Char In invalidChars
@@ -142,6 +123,7 @@ Module mods
         Next
         Return input
     End Function
+
     Function EnsureTrailingSlash(directory As String) As String
         If Not String.IsNullOrEmpty(directory) Then
             Dim separator As Char = If(directory.Contains("/"), "/"c, "\"c)
