@@ -95,6 +95,7 @@ Public Class Form1
         End If
     End Sub
     Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
+        If Not CheckServerAvailability() Then Exit Sub
         Dim result = MessageBox.Show("Do you want to logout?", "Confirmation",
                                      MessageBoxButtons.YesNo, MessageBoxIcon.Information)
         If result = DialogResult.Yes Then
