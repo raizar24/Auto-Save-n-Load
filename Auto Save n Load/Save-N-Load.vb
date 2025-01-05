@@ -41,7 +41,7 @@ Public Class Form1
         Next
         StartPosition = FormStartPosition.Manual
         Dim xValue = Screen.PrimaryScreen.Bounds.Width - 300
-        Dim yValue = Screen.PrimaryScreen.Bounds.Height - 500
+        Dim yValue = Screen.PrimaryScreen.Bounds.Height - 450
         Location = New Point(xValue, yValue)
         Try
             If Not CheckServerAvailability() Then Exit Sub
