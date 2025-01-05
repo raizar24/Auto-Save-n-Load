@@ -56,7 +56,7 @@ or you can do this
 
 #### 5. Run the Application
 - Execute the application.
-- Ensure administrative privileges are granted to allow symbolic link creation.
+- Ensure administrative privileges are granted.
 
 ---
 ### Client-Side Setup Instructions
