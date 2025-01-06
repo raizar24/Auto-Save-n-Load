@@ -242,6 +242,7 @@ Partial Class Form1
         Controls.Add(btnClose)
         FormBorderStyle = FormBorderStyle.None
         Name = "Form1"
+        ShowInTaskbar = False
         StartPosition = FormStartPosition.Manual
         Text = "Save N Load"
         ContextMenuStrip1.ResumeLayout(False)
