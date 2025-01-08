@@ -11,7 +11,6 @@ Public Class Form1
     Public gamesXML As String = Path.Combine(serverLocation, "games.xml")
     Public adminXML As String = Path.Combine(serverLocation, "admin.xml")
     Dim currentUser As String = Path.Combine(serverLocation, username)
-    Dim userSession As String = Path.Combine(Path.GetTempPath(), "session.txt")
 
     <DllImport("user32.dll")>
     Private Shared Function ShowWindow(hWnd As IntPtr, nCmdShow As Integer) As Boolean
@@ -92,10 +91,8 @@ Public Class Form1
             Directory.CreateDirectory(currentUser)
             UpdateSymbolicLinks()
 
-            If File.Exists(userSession) Then File.Delete(userSession)
-            File.WriteAllText(userSession, username)
 
-            checkCurrentUser()
+            CheckCurrentUser()
             Panel1.Visible = True
             Panel1.Location = New Point(8, 147)
             MessageBox.Show("Login Successful", "System Information",
@@ -117,8 +114,7 @@ Public Class Form1
             currentUser = Path.Combine(serverLocation, username)
             UpdateSymbolicLinks()
 
-            If File.Exists(userSession) Then File.Delete(userSession)
-            checkCurrentUser()
+            CheckCurrentUser()
             Panel1.Visible = False
         End If
     End Sub
